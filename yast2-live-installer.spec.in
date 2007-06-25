@@ -1,0 +1,31 @@
+@HEADER-COMMENT@
+
+@HEADER@
+Requires:	yast2
+BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-testsuite
+
+BuildArchitectures:	noarch
+
+Summary:	Configuration of live-installer
+
+%description
+-
+
+@PREP@
+
+@BUILD@
+
+@INSTALL@
+
+@CLEAN@
+
+%files
+%defattr(-,root,root)
+%dir @yncludedir@/live-installer
+@yncludedir@/live-installer/*
+@clientdir@/live-installer.ycp
+@clientdir@/live-installer_*.ycp
+@moduledir@/LiveInstaller.*
+@moduledir@/LiveInstaller2.*
+@desktopdir@/live-installer.desktop
+%doc @docdir@

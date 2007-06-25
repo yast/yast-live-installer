@@ -1,0 +1,52 @@
+/**
+ * Maintainer:             Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id: firstboot.ycp 36560 2007-02-28 12:40:38Z lslezak $
+ */
+{
+    textdomain "firstboot";
+
+    import "Mode";
+    import "Stage";
+    import "ProductControl";
+    import "Wizard";
+    import "Report";
+    import "LiveInstaller";
+    import "Misc";
+    import "Installation";
+    import "Storage";
+
+
+    Wizard::OpenNextBackStepsDialog();
+    Installation::destdir = "/mnt";
+    Installation::scr_destdir = "/mnt";
+
+    list<map> stage_mode = [$["stage": "normal",  "mode": "installation" ]];
+    y2internal ("SM: %1", stage_mode);
+    Mode::SetMode ("installation");
+    // required in order to make Storage.ycp honor Installation::destdir
+    Stage::Set ("initial");
+    Storage::InitLibstorage ();
+    Stage::Set ("normal");
+
+    ProductControl::custom_control_file = LiveInstaller::live_control_file;
+    if (!ProductControl::Init())
+        y2error("control file %1 not found", ProductControl::custom_control_file );
+    ProductControl::AddWizardSteps(stage_mode);
+
+    // Do log Report messages by default (#180862)
+    Report::LogMessages(true);
+    Report::LogErrors(true);
+    Report::LogWarnings(true);
+
+
+    symbol ret = ProductControl::Run();
+    y2milestone("ProductControl::Run() returned: %1", ret);
+
+    Pkg::SourceFinishAll();
+    Pkg::TargetFinish();
+
+    UI::CloseDialog();
+
+    return ret;
+}

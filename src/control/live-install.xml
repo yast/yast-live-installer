@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<productDefines  xmlns="http://www.suse.com/1.0/yast2ns"
+    xmlns:config="http://www.suse.com/1.0/configns">
+
+<!--
+Work around for the text domain
+textdomain="live-installer"
+-->
+
+    <textdomain>control</textdomain>
+    <globals>
+	<additional_kernel_parameters></additional_kernel_parameters>
+        <enable_autologin config:type="boolean">true</enable_autologin>
+	<enable_firewall config:type="boolean">true</enable_firewall>
+	<firewall_enable_ssh config:type="boolean">false</firewall_enable_ssh>
+	<fam_local_only>never</fam_local_only>
+        <incomplete_translation_treshold>95</incomplete_translation_treshold>
+        <inform_about_suboptimal_distribution config:type="boolean">true</inform_about_suboptimal_distribution>
+        <skip_language_dialog config:type="boolean">true</skip_language_dialog>
+        <ui_mode>simple</ui_mode>
+        <enable_clone config:type="boolean">false</enable_clone>
+        <enable_register_hwdata   config:type="boolean">true</enable_register_hwdata>
+        <enable_register_optional config:type="boolean">true</enable_register_optional>
+        <display_register_forcereg config:type="boolean">true</display_register_forcereg>
+        <disable_register_w3m config:type="boolean">true</disable_register_w3m>
+        <register_monthly config:type="boolean">false</register_monthly>
+	<manual_online_update config:type="boolean">true</manual_online_update>
+	<root_password_ca_check config:type="boolean">false</root_password_ca_check>
+
+	<!-- FATE #301937, Save /root content from the installation system to the installed system -->
+	<save_instsys_content config:type="list">
+	    <save_instsys_item>
+		<instsys_directory>/root/</instsys_directory>
+		<system_directory>/root/inst-sys/</system_directory>
+	    </save_instsys_item>
+	</save_instsys_content>
+    </globals>
+
+    <software>
+        <delete_old_packages config:type="boolean">true</delete_old_packages>
+        <selection_type config:type="symbol">auto</selection_type>
+
+	<!-- FATE #300898, List of external sources accesible during the installaion time -->
+	<external_sources_link>http://seven-swords.net/Repos/openSUSE_10.3/testing_list_of_repositories.xml</external_sources_link>
+    </software>
+
+    <partitioning>
+        <evms_config config:type="boolean">false</evms_config>
+        <try_separate_home config:type="boolean">true</try_separate_home>
+        <limit_try_home>7G</limit_try_home>
+        <root_space_percent>40</root_space_percent>
+        <root_base_size>5G</root_base_size>
+        <root_max_size>20G</root_max_size>
+	<proposal_lvm>false</proposal_lvm>
+	<proposal_evms>false</proposal_evms>
+	<vm_desired_size>15G</vm_desired_size>
+	<vm_home_max_size>25G</vm_home_max_size>
+	<boot_evms>false</boot_evms>
+    </partitioning>
+
+    <network>
+        <force_static_ip config:type="boolean">false</force_static_ip>
+        <network_manager>laptop</network_manager>
+	<startmode>ifplugd</startmode>
+    </network>
+
+    <texts>
+      <congratulate>
+	<label>
+&lt;p&gt;&lt;b&gt;Congratulations!&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;The installation of openSUSE on your machine is complete.
+After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt;
+&lt;p&gt;Visit us at %1.&lt;/p&gt;
+&lt;p&gt;Have a lot of fun!&lt;br&gt;Your openSUSE Development Team&lt;/p&gt;
+	</label>
+      </congratulate>
+    </texts>
+
+    <proposals config:type="list">
+        <proposal>
+            <label>Live Installation Settings</label>
+            <mode>installation</mode>
+            <stage>normal</stage>
+            <name>initial</name>
+            <enable_skip>no</enable_skip>
+            <proposal_modules config:type="list">
+                <proposal_module>hwinfo</proposal_module>
+                <proposal_module>partitions</proposal_module>
+                <proposal_module>bootloader</proposal_module>
+            </proposal_modules>
+        </proposal>
+    </proposals>
+
+    <!-- Stage: Initial, Mode: Installation -->
+    <workflows config:type="list">
+        <workflow>
+            <defaults>
+                <archs>all</archs>
+		<enable_back>yes</enable_back>
+		<enable_next>yes</enable_next>
+            </defaults>
+	    <label>Installation</label>
+            <mode>installation</mode>
+            <stage>normal</stage>
+            <modules  config:type="list">
+                <module>
+	            <label>Installation Summary</label>
+                    <name>inst_proposal</name>
+                    <proposal>initial</proposal>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>live_stage_initial</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_do_resize</name>
+                    <update config:type="boolean">false</update>
+                    <archs>i386,x86_64,ia64</archs>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_prepdisk</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_kickoff</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>live_mode_normal</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>live_doit</name>
+		    <enable_next>no</enable_next>
+		    <enable_back>no</enable_back>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>live_finish</name>
+		    <enable_back>no</enable_back>
+                </module>
+            </modules>
+        </workflow>
+
+    </workflows>
+</productDefines>

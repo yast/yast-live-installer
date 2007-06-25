@@ -1,0 +1,13 @@
+{
+
+// testedfiles: LiveInstaller.ycp
+
+include "testsuite.ycp";
+TESTSUITE_INIT([], nil);
+
+import "LiveInstaller";
+
+DUMP("LiveInstaller::Modified");
+TEST(``(LiveInstaller::Modified()), [], nil);
+
+}

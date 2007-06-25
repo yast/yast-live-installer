@@ -1,0 +1,130 @@
+/**
+ * Maintainer:             Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id: firstboot.ycp 36560 2007-02-28 12:40:38Z lslezak $
+ */
+{
+textdomain "live-installer";
+
+import "Installation";
+
+Installation::destdir = "/mnt";
+
+/**
+ * Copy a subtree, limit to a single filesystem
+ * @param from string source directory
+ * @param to string target directory
+ * @return boolean true on success
+ */
+boolean FileSystemCopy (string from, string to) {
+/*    string fromdir = "/";
+    list<string> components = splitstring (from, "/");
+    if (size (components) > 1)
+    {
+	from = components[size(components) - 1]:"";
+	components[size(components) - 1] = "";
+	fromdir = mergestring (components, "/");
+    }
+    if (fromdir == "")
+	fromdir = "/";
+    if (from == "")
+	from = "/";
+    if (to == "")
+	to = "/";
+    y2milestone ("FromDir: %1, From: %2, To: %3",
+	fromdir, from, to);
+    string cmd = sformat (
+	"(cd %1 ; tar clf - %2 ) | dd | (cd %3 ; tar -xf - )",
+	fromdir, from, to);*/
+    string cmd = sformat ("/bin/cp -avx %1 %2", from, to);
+    y2milestone ("Executing %1", cmd);
+    map out = (map)SCR::Execute (.target.bash_output, cmd);
+    y2milestone ("Result: %1", out);
+    return out["exit"]:-1 == 0;
+}
+
+/**
+ * Find symlinks which need to be resolved and copied
+ * @return a list of such symlinks
+ */
+list<string> LinksToCopyList () {
+    string cmd = sformat ("
+	for LINK in `find %1 -type l -xdev` ; do
+	    stat -c \"%%N\" $LINK |grep livecd >/devnull 2>/devnull && echo $LINK;
+	done", Installation::destdir);
+    y2milestone ("Executing %1", cmd);
+    map out = (map)SCR::Execute (.target.bash_output, cmd);
+    y2milestone ("Result: %1", out);
+    if (out["exit"]:-1 != 0)
+    {
+	y2error ("Faild resolving symlinks");
+	return [];
+    }
+    string stdout = out["stdout"]:"";
+    list<string> lines = splitstring (stdout, "\n");
+    lines = filter (string l, lines, { return l != ""; });
+    y2milestone ("Symlinks to resolve: %1", lines);
+    return lines;
+}
+
+/**
+ * Create a map of relevant link pointers
+ * @param list of links which need to be resolved and copied
+ * @return a map $[ link : target ]
+ */
+map<string,string> LinksMap (list<string> links) {
+    integer dest_length = size (Installation::destdir);
+    map<string,string> out = listmap (string link, links, {
+	if (substring (link, 0, dest_length) == Installation::destdir)
+	    link = substring (link, dest_length);
+	if (substring (link, 0, 1) != "/")
+	    link = "/" + link;
+	string target = (string)SCR::Read (.target.symlink, link);
+	return $[ link : target ];
+    });
+    y2milestone ("Resolved symlinks: %1", out);
+    return out;
+}
+
+/**
+ * Copy all the symlinks as needed
+ * @param symlinks a map of resolved symlinks
+ * @return boolean true on success
+ */
+boolean CopySymlinkedImage (map<string,string> symlinks) {
+    foreach (string link, string target, symlinks, {
+	SCR::Execute (.target.remove, sformat ("%1/%2", Installation::destdir, link));
+/*
+	list<string> components = splitstring (link, "/");
+	while (size(components) > 1
+	    && components[size(components) - 1]:"" == "")
+	{
+	    components = remove (components, size (components) - 1);
+	}
+	if (size (components) > 1)
+	    components[size(components) - 1] = "";
+	link = mergestring (components, "/");
+*/
+	FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link));
+    });
+    return true;
+}
+
+/**
+ * Copy root image to hard disk
+ * @return boolean true on success
+ */
+boolean CopyRootImage () {
+    string tmpdir = (string)SCR::Read (.target.tmpdir);
+    SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", Installation::destdir, tmpdir));
+    FileSystemCopy ("/", Installation::destdir);
+    SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", tmpdir, Installation::destdir));
+    return true;
+}
+
+CopyRootImage ();
+map<string,string> copy_map = LinksMap (LinksToCopyList ());
+CopySymlinkedImage (copy_map);
+
+
+} // client end
