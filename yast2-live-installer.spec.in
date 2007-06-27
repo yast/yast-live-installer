@@ -21,11 +21,8 @@ Summary:	Configuration of live-installer
 
 %files
 %defattr(-,root,root)
-%dir @yncludedir@/live-installer
-@yncludedir@/live-installer/*
-@clientdir@/live-installer.ycp
-@clientdir@/live-installer_*.ycp
+@clientdir@/*.ycp
 @moduledir@/LiveInstaller.*
-@moduledir@/LiveInstaller2.*
 @desktopdir@/live-installer.desktop
+/etc/YaST2/live-install.xml
 %doc @docdir@
