@@ -1,0 +1,72 @@
+/**
+ * File:
+ *  yast_inf_finish.ycp
+ *
+ * Module:
+ *  Step of base installation finish
+ *
+ * Authors:
+ *  Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id: yast_inf_finish.ycp 27936 2006-02-13 20:01:14Z olh $
+ *
+ */
+
+{
+
+textdomain "installation";
+
+import "Mode";
+import "Directory";
+
+include "installation/misc.ycp";
+
+any ret = nil;
+string func = "";
+map param = $[];
+
+/* Check arguments */
+if(size(WFM::Args()) > 0 && is(WFM::Args(0), string)) {
+    func = (string)WFM::Args(0);
+    if(size(WFM::Args()) > 1 && is(WFM::Args(1), map))
+	param = (map)WFM::Args(1);
+}
+
+y2milestone ("starting yast_inf_finish");
+y2debug("func=%1", func);
+y2debug("param=%1", param);
+
+if (func == "Info")
+{
+    return (any)$[
+	"steps" : 1,
+	// progress step title
+	"title" : _("Writing YaST Configuration..."),
+	"when" : [ `installation, `update, `autoinst ],
+    ];
+}
+else if (func == "Write")
+{
+    // --------------------------------------------------------------
+    // Tell new boot scripts to launch yast2, once the
+    // new system has done its virgin boot. The Write call
+    // creates any missing directory :-).
+
+    string runme_at_boot = Directory::vardir + "/runme_at_boot";
+    if (!SCR::Write (.target.string, runme_at_boot, ""))
+    {
+        y2error ("Couldn't create target %1", runme_at_boot );
+    }
+}
+else
+{
+    y2error ("unknown function: %1", func);
+    ret = nil;
+}
+
+y2debug("ret=%1", ret);
+y2milestone("yast_inf_finish finished");
+return ret;
+
+
+} /* EOF */

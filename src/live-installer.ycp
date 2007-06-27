@@ -15,11 +15,15 @@
     import "Misc";
     import "Installation";
     import "Storage";
+    import "Product";
 
 
     Wizard::OpenNextBackStepsDialog();
     Installation::destdir = "/mnt";
     Installation::scr_destdir = "/mnt";
+
+    // FIXME hack because of bootloader - libzypp does not contain product database
+    Product::name = "SUSE Linux";
 
     list<map> stage_mode = [$["stage": "initial",  "mode": "installation" ]];
     y2internal ("SM: %1", stage_mode);

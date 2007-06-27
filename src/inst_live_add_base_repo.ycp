@@ -1,0 +1,26 @@
+/**
+ * Maintainer:             Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id: firstboot.ycp 36560 2007-02-28 12:40:38Z lslezak $
+ */
+{
+textdomain "live-installer";
+
+import "ProductControl";
+import "ProductFeatures";
+import "PackageCallbacksInit";
+
+PackageCallbacksInit::InitPackageCallbacks ();
+
+// initialize package manager first
+Pkg::TargetInit ("/", false);
+Pkg::SourceStartCache (true);
+
+// add initial source
+string url = ProductFeatures::GetStringFeature ("software", "base_repo_url");
+y2milestone ("Base source URL: %1", url);
+Pkg::SourceCreate (url, "/");
+
+return nil;
+
+} // client end

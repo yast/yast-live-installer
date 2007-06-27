@@ -1,10 +1,16 @@
 # Makefile.am for live-installer/src
 
+SUBDIRS = control
+
 yncludedir = @yncludedir@/live-installer
 
 client_DATA =			\
 	live-installer.ycp	\
-	live_doit.ycp
+	inst_live_doit.ycp		\
+	inst_live_add_base_repo.ycp	\
+	inst_live_sw_select.ycp		\
+	live_copy_files_finish.ycp	\
+	live_runme_at_boot_finish.ycp
 
 desktop_DATA =			\
 	live-installer.desktop

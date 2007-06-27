@@ -1,0 +1,16 @@
+/**
+ * Maintainer:             Jiri Srain <jsrain@suse.cz>
+ *
+ * $Id: firstboot.ycp 36560 2007-02-28 12:40:38Z lslezak $
+ */
+{
+textdomain "live-installer";
+
+symbol result = (symbol)WFM::CallFunction ("inst_packages", []);
+y2milestone ("Result: %1", result);
+return nil;
+return result == `accept
+    ? `next
+    : `back;
+
+} // client end

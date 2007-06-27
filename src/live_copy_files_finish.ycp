@@ -8,7 +8,7 @@
  * Authors:
  *  Jiri Srain <jsrain@suse.cz>
  *
- * $Id: copy_files_finish.ycp 38430 2007-06-13 13:50:38Z locilka $
+ * $Id: live_copy_files_finish.ycp 38430 2007-06-13 13:50:38Z locilka $
  *
  */
 
@@ -21,7 +21,8 @@ import "Directory";
 import "ProductControl";
 import "FileUtils";
 import "String";
-import "SystemFilesCopy";
+// FIXME don't know why it fails :-(
+// import "SystemFilesCopy";
 
 include "installation/misc.ycp";
 
@@ -64,7 +65,7 @@ else if (func == "Write")
 
     // Copy files from inst-sys to the just installed system
     // FATE #301937, items are defined in the control file
-    SystemFilesCopy::SaveInstSysContent();
+//    SystemFilesCopy::SaveInstSysContent();
 
     // Remove old eula.txt
     // bugzilla #208908

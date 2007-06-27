@@ -42,6 +42,7 @@ textdomain="live-installer"
 
 	<!-- FATE #300898, List of external sources accesible during the installaion time -->
 	<external_sources_link>http://seven-swords.net/Repos/openSUSE_10.3/testing_list_of_repositories.xml</external_sources_link>
+	<base_repo_url>http://ftp.opensuse.org/pub/opensuse/distribution/SL-OSS-factory/inst-source/</base_repo_url>
     </software>
 
     <partitioning>
@@ -99,6 +100,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
       <inst_finish_stage>
 	<label>Prepare system for initial boot"</label>
 	<steps config:type="list">
+	  <step>live_runme_at_boot</step>
 <!--
 	  copy logs just before 'umount'
 	  keeps maximum logs available after reboot
@@ -157,6 +159,72 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 </module>
                 <module>
 	            <label>Perform Installation</label>
+                    <name>inst_live_doit</name>
+		    <enable_next>no</enable_next>
+		    <enable_back>no</enable_back>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_finish</name>
+		    <enable_back>no</enable_back>
+                </module>
+            </modules>
+        </workflow>
+        <workflow>
+            <defaults>
+                <archs>all</archs>
+		<enable_back>yes</enable_back>
+		<enable_next>yes</enable_next>
+            </defaults>
+	    <label>Configuration</label>
+            <mode>installation</mode>
+            <stage>continue</stage>
+            <modules config:type="list">
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_netsetup</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_netprobe</name>
+                </module>
+                <module>
+	            <label>root Password</label>
+                    <name>inst_root</name>
+                </module>
+                <module>
+	            <label>Hostname</label>
+                    <name>hostname</name>
+                </module>
+		<module>
+		    <label>Software Selection</label>
+		    <name>inst_live_add_base_repo</name>
+		</module>
+		<module>
+		    <label>Software Selection</label>
+		    <name>inst_live_sw_select</name>
+		</module>
+		<module>
+		    <label>Software Selection</label>
+		    <name>inst_rpmcopy</name>
+		</module>
+<!--
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_do_resize</name>
+                    <update config:type="boolean">false</update>
+                    <archs>i386,x86_64,ia64</archs>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_prepdisk</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
+                    <name>inst_kickoff</name>
+                </module>
+                <module>
+	            <label>Perform Installation</label>
                     <name>live_doit</name>
 		    <enable_next>no</enable_next>
 		    <enable_back>no</enable_back>
@@ -166,6 +234,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                     <name>inst_finish</name>
 		    <enable_back>no</enable_back>
                 </module>
+-->
             </modules>
         </workflow>
 
