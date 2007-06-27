@@ -33,17 +33,11 @@
 {
 
 module "LiveInstaller";
+
 textdomain "live-installer";
-
-import "ProductControl";
-
 
 global string live_control_file =
 	"/etc/YaST2/live-install.xml";
-
-global void LiveInstaller()
-{
-}
 
 /* EOF */
 }

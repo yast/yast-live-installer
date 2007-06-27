@@ -76,11 +76,44 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
       </congratulate>
     </texts>
 
+    <inst_finish_stages config:type="list">
+      <inst_finish_stage>
+	<label>Copy files to installed system"</label>
+	<steps config:type="list">
+	  <step>live_copy_files</step>
+	  <step>switch_scr</step>
+	</steps>
+      </inst_finish_stage>
+      <inst_finish_stage>
+	<label>Save configuration</label>
+	<steps config:type="list">
+	  <step>ldconfig</step>
+	</steps>
+      </inst_finish_stage>
+      <inst_finish_stage>
+	<label>Install boot manager"</label>
+	<steps config:type="list">
+	  <step>bootloader</step>
+	</steps>
+      </inst_finish_stage>
+      <inst_finish_stage>
+	<label>Prepare system for initial boot"</label>
+	<steps config:type="list">
+<!--
+	  copy logs just before 'umount'
+	  keeps maximum logs available after reboot
+-->
+	  <step>copy_logs</step>
+	  <step>umount</step>
+	</steps>
+      </inst_finish_stage>
+    </inst_finish_stages>
+
     <proposals config:type="list">
         <proposal>
             <label>Live Installation Settings</label>
             <mode>installation</mode>
-            <stage>normal</stage>
+            <stage>initial</stage>
             <name>initial</name>
             <enable_skip>no</enable_skip>
             <proposal_modules config:type="list">
@@ -101,16 +134,12 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
             </defaults>
 	    <label>Installation</label>
             <mode>installation</mode>
-            <stage>normal</stage>
-            <modules  config:type="list">
+            <stage>initial</stage>
+            <modules config:type="list">
                 <module>
 	            <label>Installation Summary</label>
                     <name>inst_proposal</name>
                     <proposal>initial</proposal>
-                </module>
-                <module>
-	            <label>Perform Installation</label>
-                    <name>live_stage_initial</name>
                 </module>
                 <module>
 	            <label>Perform Installation</label>
@@ -128,17 +157,13 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 </module>
                 <module>
 	            <label>Perform Installation</label>
-                    <name>live_mode_normal</name>
-                </module>
-                <module>
-	            <label>Perform Installation</label>
                     <name>live_doit</name>
 		    <enable_next>no</enable_next>
 		    <enable_back>no</enable_back>
                 </module>
                 <module>
 	            <label>Perform Installation</label>
-                    <name>live_finish</name>
+                    <name>inst_finish</name>
 		    <enable_back>no</enable_back>
                 </module>
             </modules>

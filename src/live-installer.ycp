@@ -21,13 +21,12 @@
     Installation::destdir = "/mnt";
     Installation::scr_destdir = "/mnt";
 
-    list<map> stage_mode = [$["stage": "normal",  "mode": "installation" ]];
+    list<map> stage_mode = [$["stage": "initial",  "mode": "installation" ]];
     y2internal ("SM: %1", stage_mode);
     Mode::SetMode ("installation");
-    // required in order to make Storage.ycp honor Installation::destdir
+    // Stage::initial is required for most of the modules to behave correctly
     Stage::Set ("initial");
     Storage::InitLibstorage ();
-    Stage::Set ("normal");
 
     ProductControl::custom_control_file = LiveInstaller::live_control_file;
     if (!ProductControl::Init())

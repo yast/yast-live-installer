@@ -39,7 +39,7 @@ boolean FileSystemCopy (string from, string to) {
     string cmd = sformat ("/bin/cp -avx %1 %2", from, to);
     y2milestone ("Executing %1", cmd);
     map out = (map)SCR::Execute (.target.bash_output, cmd);
-    y2milestone ("Result: %1", out);
+//    y2milestone ("Result: %1", out);
     return out["exit"]:-1 == 0;
 }
 
@@ -49,9 +49,9 @@ boolean FileSystemCopy (string from, string to) {
  */
 list<string> LinksToCopyList () {
     string cmd = sformat ("
-	for LINK in `find %1 -type l -xdev` ; do
+	for LINK in `find %1 -xdev -type l` ; do
 	    stat -c \"%%N\" $LINK |grep livecd >/devnull 2>/devnull && echo $LINK;
-	done", Installation::destdir);
+	done; exit 0", Installation::destdir);
     y2milestone ("Executing %1", cmd);
     map out = (map)SCR::Execute (.target.bash_output, cmd);
     y2milestone ("Result: %1", out);
