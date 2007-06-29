@@ -6,9 +6,17 @@
 {
 textdomain "live-installer";
 
+import "GetInstArgs";
+import "Wizard";
+
+/* Called backwards */
+if(GetInstArgs::going_back())
+   return `auto;
+
+Wizard::SetContents (_("Software Installation"), `VBox (), "",
+    GetInstArgs::enable_back(), GetInstArgs::enable_next());
 symbol result = (symbol)WFM::CallFunction ("inst_packages", []);
 y2milestone ("Result: %1", result);
-return nil;
 return result == `accept
     ? `next
     : `back;

@@ -7,7 +7,7 @@ Work around for the text domain
 textdomain="live-installer"
 -->
 
-    <textdomain>control</textdomain>
+    <textdomain>live-installer</textdomain>
     <globals>
 	<additional_kernel_parameters></additional_kernel_parameters>
         <enable_autologin config:type="boolean">true</enable_autologin>
@@ -114,7 +114,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
     <proposals config:type="list">
         <proposal>
             <label>Live Installation Settings</label>
-            <mode>installation</mode>
+            <mode>live_installation</mode>
             <stage>initial</stage>
             <name>initial</name>
             <enable_skip>no</enable_skip>
@@ -122,6 +122,63 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 <proposal_module>hwinfo</proposal_module>
                 <proposal_module>partitions</proposal_module>
                 <proposal_module>bootloader</proposal_module>
+            </proposal_modules>
+        </proposal>
+        <proposal>
+            <label>Network Configuration</label>
+            <name>network</name>
+            <stage>continue,normal</stage>
+            <enable_skip>yes</enable_skip>
+            <proposal_modules config:type="list">
+                <proposal_module>
+		    <name>lan</name>
+		    <presentation_order>20</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>networkmanager</name>
+		    <presentation_order>5</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>ipv6</name>
+		    <presentation_order>15</presentation_order>
+		</proposal_module>
+		<proposal_module>
+		    <name>dsl</name>
+		    <presentation_order>30</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>isdn</name>
+		    <presentation_order>40</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>modem</name>
+		    <presentation_order>50</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>remote</name>
+		    <presentation_order>60</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>firewall</name>
+		    <presentation_order>10</presentation_order>
+		</proposal_module>
+                <proposal_module>
+		    <name>proxy</name>
+		    <presentation_order>70</presentation_order>
+		</proposal_module>
+            </proposal_modules>
+        </proposal>
+        <proposal>
+            <label>Hardware Configuration</label>
+            <name>hardware</name>
+            <stage>continue</stage>
+            <enable_skip>yes</enable_skip>
+            <proposal_modules config:type="list">
+                <proposal_module>x11</proposal_module>
+                <proposal_module>printer</proposal_module>
+                <proposal_module>sound</proposal_module>
+                <proposal_module>tv</proposal_module>
+                <proposal_module>bluetooth</proposal_module>
             </proposal_modules>
         </proposal>
     </proposals>
@@ -135,7 +192,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 		<enable_next>yes</enable_next>
             </defaults>
 	    <label>Installation</label>
-            <mode>installation</mode>
+            <mode>live_installation</mode>
             <stage>initial</stage>
             <modules config:type="list">
                 <module>
@@ -177,66 +234,95 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 		<enable_next>yes</enable_next>
             </defaults>
 	    <label>Configuration</label>
-            <mode>installation</mode>
+            <mode>live_installation</mode>
             <stage>continue</stage>
             <modules config:type="list">
-                <module>
-	            <label>Perform Installation</label>
-                    <name>inst_netsetup</name>
-                </module>
-                <module>
-	            <label>Perform Installation</label>
-                    <name>inst_netprobe</name>
-                </module>
                 <module>
 	            <label>root Password</label>
                     <name>inst_root</name>
                 </module>
                 <module>
 	            <label>Hostname</label>
-                    <name>hostname</name>
+                    <name>inst_hostname</name>
+                </module>
+                <module>
+	            <label>Network</label>
+                    <name>inst_proposal</name>
+                    <proposal>network</proposal>
                 </module>
 		<module>
-		    <label>Software Selection</label>
+	            <label>Network</label>
+                    <name>inst_fam</name>
+		</module>
+                <module>
+	            <label>Network</label>
+                    <name>inst_ask_net_test</name>
+                </module>
+                <module>
+	            <label>Network</label>
+                    <name>inst_do_net_test</name>
+                </module>
+		<module>
+		    <label>Configure Software Management</label>
 		    <name>inst_live_add_base_repo</name>
 		</module>
 		<module>
-		    <label>Software Selection</label>
+                    <label>Online Update</label>
+                    <name>ask_online_update</name>
+                    <enable_back>yes</enable_back>
+                    <enable_next>yes</enable_next>
+                </module>
+                <module>
+	            <label>Online Update</label>
+                    <name>you</name>
+                </module>
+		<module>
+		    <label>Online Update</label>
+		    <name>restore_settings</name>
+		</module>
+<!-- FIXME use appropriate client once it exists
+		<module>
+		    <label>Software Installation</label>
+		    <name>inst_additional_repos</name>
+		</module>
+-->
+		<module>
+		    <label>Software Installation</label>
 		    <name>inst_live_sw_select</name>
 		</module>
 		<module>
-		    <label>Software Selection</label>
+		    <label>Software Installation</label>
 		    <name>inst_rpmcopy</name>
 		</module>
-<!--
                 <module>
-	            <label>Perform Installation</label>
-                    <name>inst_do_resize</name>
-                    <update config:type="boolean">false</update>
-                    <archs>i386,x86_64,ia64</archs>
+	            <label>Users</label>
+                    <name>auth</name>
+                    <enable_back>no</enable_back>
                 </module>
                 <module>
-	            <label>Perform Installation</label>
-                    <name>inst_prepdisk</name>
+	            <label>Users</label>
+                    <name>user</name>
                 </module>
                 <module>
-	            <label>Perform Installation</label>
-                    <name>inst_kickoff</name>
+	            <label>Clean Up</label>
+                    <name>suseconfig</name>
+                    <enable_back>no</enable_back>
+                    <enable_next>no</enable_next>
                 </module>
                 <module>
-	            <label>Perform Installation</label>
-                    <name>live_doit</name>
-		    <enable_next>no</enable_next>
-		    <enable_back>no</enable_back>
+	            <label>Release Notes</label>
+                    <name>release_notes</name>
                 </module>
                 <module>
-	            <label>Perform Installation</label>
-                    <name>inst_finish</name>
-		    <enable_back>no</enable_back>
+	            <label>Hardware Configuration</label>
+                    <name>proposal</name>
+                    <proposal>hardware</proposal>
                 </module>
--->
+                <module>
+	            <label>Hardware Configuration</label>
+		    <name>save_hardware_status</name>
+		</module>
             </modules>
         </workflow>
-
     </workflows>
 </productDefines>

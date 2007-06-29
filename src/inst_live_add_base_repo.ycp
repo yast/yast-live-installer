@@ -9,6 +9,12 @@ textdomain "live-installer";
 import "ProductControl";
 import "ProductFeatures";
 import "PackageCallbacksInit";
+import "GetInstArgs";
+import "Wizard";
+
+/* Called backwards */
+if(GetInstArgs::going_back())
+   return `auto;
 
 PackageCallbacksInit::InitPackageCallbacks ();
 
@@ -16,11 +22,14 @@ PackageCallbacksInit::InitPackageCallbacks ();
 Pkg::TargetInit ("/", false);
 Pkg::SourceStartCache (true);
 
+Wizard::SetContents (_("Software Installation"), `VBox (), "",
+    GetInstArgs::enable_back(), GetInstArgs::enable_next());
+
 // add initial source
 string url = ProductFeatures::GetStringFeature ("software", "base_repo_url");
 y2milestone ("Base source URL: %1", url);
 Pkg::SourceCreate (url, "/");
 
-return nil;
+return `next;
 
 } // client end

@@ -7,6 +7,8 @@
 textdomain "live-installer";
 
 import "Installation";
+import "Progress";
+import "Wizard";
 
 Installation::destdir = "/mnt";
 
@@ -92,7 +94,10 @@ map<string,string> LinksMap (list<string> links) {
  * @return boolean true on success
  */
 boolean CopySymlinkedImage (map<string,string> symlinks) {
+    integer index = 0;
     foreach (string link, string target, symlinks, {
+	index = index + 1;
+	Progress::Title (sformat (_("Copying %1..."), link));
 	SCR::Execute (.target.remove, sformat ("%1/%2", Installation::destdir, link));
 /*
 	list<string> components = splitstring (link, "/");
@@ -106,6 +111,7 @@ boolean CopySymlinkedImage (map<string,string> symlinks) {
 	link = mergestring (components, "/");
 */
 	FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link));
+	Progress::Step (10 + (90 * index / size (symlinks)));
     });
     return true;
 }
@@ -122,9 +128,29 @@ boolean CopyRootImage () {
     return true;
 }
 
-CopyRootImage ();
-map<string,string> copy_map = LinksMap (LinksToCopyList ());
-CopySymlinkedImage (copy_map);
+Progress::New(
+    // Headline for last dialog of base installation: Install LILO etc.
+    _("Copying the Live Image to Hard Disk"),
+    "",	// Initial progress bar label - not empty (reserve space!)
+    100,
+    [ _("Copy root filesystem"), _("Evaluate additional filesystems"), _("Copy additional filesystems") ],
+    [],
+    "");
 
+Wizard::DisableBackButton ();
+Wizard::DisableNextButton ();
+
+Progress::NextStage ();
+Progress::Title (_("Copying root filesystem..."));
+CopyRootImage ();
+Progress::NextStageStep (5);
+Progress::Title (_("Evaluating additional filesystems..."));
+map<string,string> copy_map = LinksMap (LinksToCopyList ());
+Progress::NextStageStep (10);
+CopySymlinkedImage (copy_map);
+Progress::Finish();
+Progress::Title (_("Finished."));
+
+return `next;
 
 } // client end

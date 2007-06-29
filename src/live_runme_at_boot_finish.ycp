@@ -14,10 +14,11 @@
 
 {
 
-textdomain "installation";
+textdomain "live-installer";
 
 import "Mode";
 import "Directory";
+import "Misc";
 
 include "installation/misc.ycp";
 
@@ -57,6 +58,13 @@ else if (func == "Write")
     {
         y2error ("Couldn't create target %1", runme_at_boot );
     }
+    if (!SCR::Write (.target.string, Installation::file_live_install_mode, "YES"))
+    {
+        y2error ("Couldn't create target %1", Installation::file_live_install_mode );
+    }
+    // FIXME doesn't belong here
+    Misc::boot_msg = _("Reboot the computer without the Live CD in the drive
+to continue the installation.");
 }
 else
 {
