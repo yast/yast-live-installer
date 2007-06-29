@@ -14,13 +14,15 @@
 
 {
 
-textdomain "installation";
+textdomain "live-installer";
 
 import "Installation";
 import "Directory";
 import "ProductControl";
 import "FileUtils";
 import "String";
+import "Initrd";
+import "BootCommon";
 // FIXME don't know why it fails :-(
 // import "SystemFilesCopy";
 
@@ -79,6 +81,10 @@ else if (func == "Write")
     {
 	SCR::Execute (.target.bash, sformat("/bin/cp /info.txt %1", eula_txt));
     }
+
+    // FIXME belongs somewhere else
+    Initrd::SetAdditionalParameters (Initrd::AdditionalParameters () + " -d " + BootCommon::RootPartitionDevice);
+
 }
 else
 {

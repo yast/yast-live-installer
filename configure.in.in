@@ -7,9 +7,11 @@
 ## some common checks
 @YAST2-CHECKS-COMMON@
 @YAST2-CHECKS-YCP@
+@YAST2-CHECKS-TESTSUITE@
 
 ## Nasty hack: xgettext doesn't work for XML files, so let's symlink it
-( cd src/control; ln -sf firstboot.xml firstboot.glade )
+( cd src/control; ln -sf live-install.xml live-install.glade )
+find src/control -name \*.glade | LC_ALL=C sort > POTFILES
 
 ## and generate the output...
 @YAST2-OUTPUT@
