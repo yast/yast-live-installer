@@ -124,63 +124,6 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 <proposal_module>bootloader</proposal_module>
             </proposal_modules>
         </proposal>
-        <proposal>
-            <label>Network Configuration</label>
-            <name>network</name>
-            <stage>continue,normal</stage>
-            <enable_skip>yes</enable_skip>
-            <proposal_modules config:type="list">
-                <proposal_module>
-		    <name>lan</name>
-		    <presentation_order>20</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>networkmanager</name>
-		    <presentation_order>5</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>ipv6</name>
-		    <presentation_order>15</presentation_order>
-		</proposal_module>
-		<proposal_module>
-		    <name>dsl</name>
-		    <presentation_order>30</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>isdn</name>
-		    <presentation_order>40</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>modem</name>
-		    <presentation_order>50</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>remote</name>
-		    <presentation_order>60</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>firewall</name>
-		    <presentation_order>10</presentation_order>
-		</proposal_module>
-                <proposal_module>
-		    <name>proxy</name>
-		    <presentation_order>70</presentation_order>
-		</proposal_module>
-            </proposal_modules>
-        </proposal>
-        <proposal>
-            <label>Hardware Configuration</label>
-            <name>hardware</name>
-            <stage>continue</stage>
-            <enable_skip>yes</enable_skip>
-            <proposal_modules config:type="list">
-                <proposal_module>x11</proposal_module>
-                <proposal_module>printer</proposal_module>
-                <proposal_module>sound</proposal_module>
-                <proposal_module>tv</proposal_module>
-                <proposal_module>bluetooth</proposal_module>
-            </proposal_modules>
-        </proposal>
     </proposals>
 
     <!-- Stage: Initial, Mode: Installation -->
@@ -196,8 +139,17 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
             <stage>initial</stage>
             <modules config:type="list">
                 <module>
-	            <label>Installation Summary</label>
-                    <name>inst_proposal</name>
+	            <label>Welcome</label>
+                    <name>inst_live_welcome</name>
+                </module>
+                <module>
+	            <label>Installation Settings</label>
+                    <name>inst_live_simple_proposal</name>
+                    <proposal>initial</proposal>
+                </module>
+                <module>
+	            <label>Installation Settings</label>
+                    <name>inst_live_full_proposal</name>
                     <proposal>initial</proposal>
                 </module>
                 <module>
@@ -242,30 +194,27 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                     <name>inst_root</name>
                 </module>
                 <module>
-	            <label>Hostname</label>
-                    <name>inst_hostname</name>
-                </module>
-                <module>
-	            <label>Network</label>
-                    <name>inst_proposal</name>
-                    <proposal>network</proposal>
+	            <label>Users</label>
+                    <name>user</name>
                 </module>
 		<module>
 	            <label>Network</label>
                     <name>inst_fam</name>
 		</module>
                 <module>
-	            <label>Network</label>
+	            <label>Online Update</label>
                     <name>inst_ask_net_test</name>
                 </module>
                 <module>
-	            <label>Network</label>
+	            <label>Online Update</label>
                     <name>inst_do_net_test</name>
                 </module>
+<!--
 		<module>
 		    <label>Configure Software Management</label>
 		    <name>inst_live_add_base_repo</name>
 		</module>
+-->
 		<module>
                     <label>Online Update</label>
                     <name>ask_online_update</name>
@@ -286,23 +235,6 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 		    <name>inst_additional_repos</name>
 		</module>
 -->
-		<module>
-		    <label>Software Installation</label>
-		    <name>inst_live_sw_select</name>
-		</module>
-		<module>
-		    <label>Software Installation</label>
-		    <name>inst_rpmcopy</name>
-		</module>
-                <module>
-	            <label>Users</label>
-                    <name>auth</name>
-                    <enable_back>no</enable_back>
-                </module>
-                <module>
-	            <label>Users</label>
-                    <name>user</name>
-                </module>
                 <module>
 	            <label>Clean Up</label>
                     <name>suseconfig</name>
@@ -310,18 +242,10 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                     <enable_next>no</enable_next>
                 </module>
                 <module>
-	            <label>Release Notes</label>
-                    <name>release_notes</name>
+                    <name>congratulate</name>
+                    <enable_back>yes</enable_back>
+                    <enable_next>yes</enable_next>
                 </module>
-                <module>
-	            <label>Hardware Configuration</label>
-                    <name>proposal</name>
-                    <proposal>hardware</proposal>
-                </module>
-                <module>
-	            <label>Hardware Configuration</label>
-		    <name>save_hardware_status</name>
-		</module>
             </modules>
         </workflow>
     </workflows>

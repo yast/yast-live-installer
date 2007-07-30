@@ -39,5 +39,7 @@ textdomain "live-installer";
 global string live_control_file =
 	"/etc/YaST2/live-install.xml";
 
+global boolean run_full_proposal = false;
+
 /* EOF */
 }

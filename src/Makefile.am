@@ -10,7 +10,10 @@ client_DATA =			\
 	inst_live_add_base_repo.ycp	\
 	inst_live_sw_select.ycp		\
 	live_copy_files_finish.ycp	\
-	live_runme_at_boot_finish.ycp
+	live_runme_at_boot_finish.ycp	\
+	inst_live_welcome.ycp		\
+	inst_live_full_proposal.ycp	\
+	inst_live_simple_proposal.ycp
 
 desktop_DATA =			\
 	live-installer.desktop

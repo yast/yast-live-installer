@@ -1,0 +1,142 @@
+/**
+ *
+ */
+{
+
+import "BootCommon";
+import "GetInstArgs";
+import "Popup";
+import "Product";
+import "Wizard";
+import "LiveInstaller";
+import "Storage";
+import "HTML";
+
+textdomain "live-installer";
+
+Wizard::SetContents (
+    _("Installation settings"),
+    `Label (_("Analyzing the system")),
+    "",
+    false,
+    false
+);
+
+WFM::CallFunction ( "partitions_proposal",
+    [ "MakeProposal", $[
+	"force_reset" : false,
+	"language_changed" : false ]
+    ]
+);
+
+WFM::CallFunction ( "bootloader_proposal",
+    [ "MakeProposal", $[
+	"force_reset" : false,
+	"language_changed" : false ]
+    ]
+);
+
+// partitioning summary
+
+map<string,map> tm = Storage::GetTargetMap ();
+integer used = 0;
+integer free = 0;
+
+list<string> disks = [];
+
+foreach (string disk, map data, tm, {
+    list<map<string,any> > partitions = data["partitions"]:[];
+    foreach (map<string,any> p, partitions, {
+	if (p["mount"]:"" == "swap" || (p["mount"]:"" != "" && p["format"]:false))
+	{
+	    used = used + p["size_k"]:0;
+	}
+	else if (p["type"]:nil != `extended)
+	{
+	    free = free + p["size_k"]:0;
+	}
+    });
+    if (used > 0)
+    {
+	used = (100*used)/(used+free);
+	disks = add (disks, sformat (
+	    _("<li>Use %1%% of %2 for Linux</li>"), used, data["name"]:"disk"));
+    }
+    else
+    {
+	disks = add (disks, sformat (_("<li>Do not use %1</li>"), data["name"]:"disk"));
+    }
+});
+
+string partitioning = HTML::List (disks);
+
+// end of partitioning summary
+
+// bootloader summary
+string booting = "booting";
+
+string lt = BootCommon::getLoaderType (false);
+string ln = BootCommon::getLoaderName (lt, `summary);
+
+list<string> locations = [];
+
+if (BootCommon::globals["boot_boot"]:"" == "true")
+    locations = add(locations, BootCommon::BootPartitionDevice);
+if (BootCommon::globals["boot_root"]:"" == "true")
+    locations = add(locations, BootCommon::RootPartitionDevice);
+if (BootCommon::globals["boot_mbr"]:"" == "true")
+    locations = add(locations, BootCommon::mbrDisk);
+if (haskey (BootCommon::globals, "boot_custom"))
+    locations = add(locations, BootCommon::globals["boot_custom"]:"");
+
+if (size (locations) == 0 || lt == "none")
+    booting = _("Do not install bootloader");
+else
+{
+    booting = sformat (_("Install %1 to %2"), ln, mergestring (locations, ", "));
+}
+
+booting = HTML::List ([booting]);
+
+// FIXME was copy-pasted from GRUB, adaptability on anything but GRUB or LILO may be problematic
+// end of bootloader summary
+
+string summary = sformat (_("<h1>Partitioning</h1>%1<h1>Booting</h1>%2"),
+    partitioning, booting);
+
+term contents = `VBox (
+    // TRANSLATORS: progress message
+    `RichText (summary),
+    `PushButton (`id (`change), _("Change Installation Settings"))
+);
+
+Wizard::SetContents (
+    _("Installation settings"),
+    contents,
+    "",
+    GetInstArgs::enable_back(),
+    GetInstArgs::enable_next()
+);
+Wizard::SetTitleIcon ("yast-software");
+
+symbol ret = nil;
+
+while (ret != `back && ret != `next)
+{
+    ret = (symbol)UI::UserInput ();
+    if (ret == `abort && Popup::ConfirmAbort (`painless))
+	return `abort;
+    if (ret == `next)
+    {
+	LiveInstaller::run_full_proposal = false;
+	ret = (symbol)WFM::CallFunction("inst_doit", [] );
+    }
+    else if (ret == `change)
+    {
+	LiveInstaller::run_full_proposal = true;
+	ret = `next;
+    }
+}
+
+return ret;
+}
