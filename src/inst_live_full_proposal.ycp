@@ -1,0 +1,13 @@
+/**
+ *
+ */
+{
+
+import "LiveInstaller";
+
+if (LiveInstaller::run_full_proposal)
+    return (symbol) WFM::CallFunction ("inst_proposal", WFM::Args ());
+
+return `next;
+
+}

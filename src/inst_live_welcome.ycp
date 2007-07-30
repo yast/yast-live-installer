@@ -1,0 +1,36 @@
+/**
+ *
+ */
+{
+
+import "GetInstArgs";
+import "Popup";
+import "Product";
+import "Wizard";
+
+textdomain "live-installer";
+
+Wizard::SetContents (
+    sformat (_("Welcome to %1 installation"), Product::name),
+    // TRANSLATORS: progress message
+    `Label (sformat (_("YaST will install %1
+on your computer. You will be asked several
+questions before the installation will
+start."), Product::name)),
+    "",
+    GetInstArgs::enable_back(),
+    GetInstArgs::enable_next()
+);
+Wizard::SetTitleIcon ("yast-software");
+
+symbol ret = nil;
+
+while (ret != `next)
+{
+    ret = (symbol)UI::UserInput ();
+    if (ret == `abort && Popup::ConfirmAbort (`painless))
+	return `abort;
+}
+
+return ret;
+}
