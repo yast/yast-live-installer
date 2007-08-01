@@ -11,12 +11,12 @@ import "Wizard";
 textdomain "live-installer";
 
 Wizard::SetContents (
+    // dialog caption, %1 is product name (typically openSUSE)
     sformat (_("Welcome to %1 installation"), Product::name),
-    // TRANSLATORS: progress message
-    `Label (sformat (_("YaST will install %1
-on your computer. You will be asked several
-questions before the installation will
-start."), Product::name)),
+    // wellcome label, %1 is product name
+    `Label (sformat (_("Your %1 will be installed quickly
+and easily in a few steps.
+You will only have to answer some questions."), Product::name)),
     "",
     GetInstArgs::enable_back(),
     GetInstArgs::enable_next()
