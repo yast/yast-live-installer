@@ -18,30 +18,69 @@ Installation::destdir = "/mnt";
  * @param to string target directory
  * @return boolean true on success
  */
-boolean FileSystemCopy (string from, string to) {
-/*    string fromdir = "/";
-    list<string> components = splitstring (from, "/");
-    if (size (components) > 1)
-    {
-	from = components[size(components) - 1]:"";
-	components[size(components) - 1] = "";
-	fromdir = mergestring (components, "/");
-    }
-    if (fromdir == "")
-	fromdir = "/";
-    if (from == "")
-	from = "/";
-    if (to == "")
-	to = "/";
-    y2milestone ("FromDir: %1, From: %2, To: %3",
-	fromdir, from, to);
-    string cmd = sformat (
-	"(cd %1 ; tar clf - %2 ) | dd | (cd %3 ; tar -xf - )",
-	fromdir, from, to);*/
-    string cmd = sformat ("/bin/cp -avx %1 %2", from, to);
+boolean FileSystemCopy (string from, string to,
+    integer progress_start,
+    integer progress_finish)
+{
+    string cmd = sformat ("du -x -B 1048576 -s %1", from);
     y2milestone ("Executing %1", cmd);
     map out = (map)SCR::Execute (.target.bash_output, cmd);
-//    y2milestone ("Result: %1", out);
+    y2milestone ("Output: %1", out);
+    string total_str = out["stdout"]:"";
+    integer total_mb = tointeger (total_str);
+    if (total_mb == 0)
+	total_mb = 1024*1024*1024; // should be big enough
+
+    string tmp_pipe = (string)SCR::Read (.target.tmpdir) + "/system_clone_fifo";
+    // FIXME this does not copy pipes in filesystem (usually not an issue)
+    cmd = sformat (
+	"mkfifo %3 ; tar -C %1 -cSf - --one-file-system . | dd bs=1048576 of=%3 & echo $! >&2 ; tar -C %2 -xSf %3",
+	from, to, tmp_pipe);
+    y2milestone ("Executing %1", cmd);
+    SCR::Execute(.background.run_output_err, cmd);
+    string pid = "";
+    while((boolean)SCR::Read(.background.output_open_err) || (boolean)(SCR::Read(.background.newlines_err) > 0))
+    {
+	string done = nil;
+	if ((integer)SCR::Read (.background.newlines_err) > 0)
+	{
+	    list<string> lines = (list<string>)SCR::Read (.background.newerr);
+	    while (pid == "" && size (lines) > 0)
+	    {
+		pid = lines[0]:"";
+		lines[0] = nil;
+		lines = filter (string l, lines, { return l != nil; });
+		if (! regexpmatch (pid, "^[0-9]+$"))
+		    pid = "";
+		else
+		    y2milestone ("DD's pid: %1", pid);
+	    }
+	    foreach (string l, lines, {
+y2internal ("Line: %1", l);
+		if (regexpmatch (l, "^[0-9]+ "))
+		    done = regexpsub (l, "^([0-9]+) ", "\\1");
+	    });
+	    y2internal ("Done: %1", done);
+	}
+	if (pid != "")
+	{
+	    SCR::Execute (.target.bash, sformat ("/bin/kill -USR1 %1", pid));
+	}
+	sleep (100);
+	if (done != nil)
+	{
+	    integer progress = progress_start + (progress_finish - progress_start) * tointeger (done) / total_mb / 1024 / 1024;
+	    Progress::Step (progress);
+	    y2milestone ("Setting progress to %1", progress);
+	}
+    }
+    y2milestone ("Result: %1", SCR::Read (.background.status));
+    SCR::Execute (.target.remove, tmp_pipe);
+    cmd = sformat ("chown --reference=%1 %2; chmod --reference=%1 %2",
+	from, to);
+    y2milestone ("Executing %1", cmd);
+    out = (map)SCR::Execute (.target.bash_output, cmd);
+    y2milestone ("Result: %1", out);
     return out["exit"]:-1 == 0;
 }
 
@@ -93,8 +132,9 @@ map<string,string> LinksMap (list<string> links) {
  * @param symlinks a map of resolved symlinks
  * @return boolean true on success
  */
-boolean CopySymlinkedImage (map<string,string> symlinks) {
+boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start) {
     integer index = 0;
+    integer progress_step = (100-progress_start) * index / size (symlinks);
     foreach (string link, string target, symlinks, {
 	index = index + 1;
 	Progress::Title (sformat (_("Copying %1..."), link));
@@ -110,8 +150,10 @@ boolean CopySymlinkedImage (map<string,string> symlinks) {
 	    components[size(components) - 1] = "";
 	link = mergestring (components, "/");
 */
-	FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link));
-	Progress::Step (10 + (90 * index / size (symlinks)));
+	integer progress_done = progress_start + progress_step;
+	FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link), progress_start, progress_done);
+	progress_start = progress_done;
+	Progress::Step (progress_start);
     });
     return true;
 }
@@ -120,10 +162,10 @@ boolean CopySymlinkedImage (map<string,string> symlinks) {
  * Copy root image to hard disk
  * @return boolean true on success
  */
-boolean CopyRootImage () {
+boolean CopyRootImage (integer progress_start, integer progress_finish) {
     string tmpdir = (string)SCR::Read (.target.tmpdir);
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", Installation::destdir, tmpdir));
-    FileSystemCopy ("/", Installation::destdir);
+    FileSystemCopy ("/", Installation::destdir, progress_start, progress_finish);
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", tmpdir, Installation::destdir));
     return true;
 }
@@ -133,7 +175,7 @@ Progress::New(
     _("Copying the Live Image to Hard Disk"),
     "",	// Initial progress bar label - not empty (reserve space!)
     100,
-    [ _("Copy root filesystem"), _("Evaluate additional filesystems"), _("Copy additional filesystems") ],
+    [ _("Evaluate filesystems to copy"), _("Copy root filesystem"), _("Copy additional filesystems") ],
     [],
     "");
 
@@ -141,13 +183,17 @@ Wizard::DisableBackButton ();
 Wizard::DisableNextButton ();
 
 Progress::NextStage ();
-Progress::Title (_("Copying root filesystem..."));
-CopyRootImage ();
-Progress::NextStageStep (5);
-Progress::Title (_("Evaluating additional filesystems..."));
+Progress::Title (_("Evaluating filesystems to copy..."));
 map<string,string> copy_map = LinksMap (LinksToCopyList ());
+Progress::NextStageStep (5);
+Progress::Title (_("Copying root filesystem..."));
+
+integer steps = size (copy_map) + 1;
+integer step_size = 95 / steps;
+
+CopyRootImage (5, 5 + step_size);
 Progress::NextStageStep (10);
-CopySymlinkedImage (copy_map);
+CopySymlinkedImage (copy_map, 5 + step_size);
 Progress::Finish();
 Progress::Title (_("Finished."));
 
