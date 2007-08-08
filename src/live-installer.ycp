@@ -23,7 +23,7 @@
     Installation::scr_destdir = "/mnt";
 
     // FIXME hack because of bootloader - libzypp does not contain product database
-    Product::name = "SUSE Linux";
+    Product::name = "openSUSE";
 
     list<map> stage_mode = [
 	$["stage": "initial",  "mode": "live_installation" ],
