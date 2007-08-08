@@ -3,6 +3,7 @@ Wed Aug  8 16:22:14 CEST 2007 - jsrain@suse.cz
 
 - added missing help texts
 - changed product name to openSUSE (#297609)
+- 2.15.3
 
 -------------------------------------------------------------------
 Thu Aug  2 10:53:01 CEST 2007 - jsrain@suse.cz
@@ -10,7 +11,7 @@ Thu Aug  2 10:53:01 CEST 2007 - jsrain@suse.cz
 - even more simplified installation overview
 - report progress while copying to the system
 - reduced the steps
-- 2.15.3
+- 2.15.2
 
 -------------------------------------------------------------------
 Mon Jul 30 17:27:29 CEST 2007 - jsrain@suse.cz
