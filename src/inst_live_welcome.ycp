@@ -10,6 +10,10 @@ import "Wizard";
 
 textdomain "live-installer";
 
+// help text 1/1
+string help = _("<p>Welcome to the &product; installation.
+Push <b>Next</p> to run the installation wizard.</p>");
+
 Wizard::SetContents (
     // dialog caption, %1 is product name (typically openSUSE)
     sformat (_("Welcome to %1 installation"), Product::name),
@@ -17,7 +21,7 @@ Wizard::SetContents (
     `Label (sformat (_("Your %1 will be installed quickly
 and easily in a few steps.
 You will only have to answer some questions."), Product::name)),
-    "",
+    help,
     GetInstArgs::enable_back(),
     GetInstArgs::enable_next()
 );

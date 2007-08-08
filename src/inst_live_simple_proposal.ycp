@@ -11,6 +11,7 @@ import "Wizard";
 import "LiveInstaller";
 import "Storage";
 import "HTML";
+import "Label";
 
 textdomain "live-installer";
 
@@ -106,14 +107,29 @@ contents = `VBox (
     `VSpacing (1)
 );
 
+// help text 1/3
+string help = _("<p>
+Use <b>Accept</b> to perform a new installation with the values displayed.</p>")
+// help text 2/3
++ _("<p>
+Change the values by clicking on the respective headline
+or by using the <b>Change Installation Settings</b> button.</p>")
+// help text 3/3
++ _("<p>
+Your hard disk has not been modified in any way, so you can still safely abort.
+</p>");
+
+
+
 Wizard::SetContents (
     _("Installation settings"),
     contents,
-    "",
+    help,
     GetInstArgs::enable_back(),
     GetInstArgs::enable_next()
 );
 Wizard::SetTitleIcon ("yast-software");
+Wizard::SetNextButton (`next, Label::AcceptButton ());
 
 symbol ret = nil;
 
