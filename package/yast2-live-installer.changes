@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug  9 19:34:13 CEST 2007 - jsrain@suse.cz
+
+- do inform about missing cmdline interface instead of starting
+  GUI (#269890)
+
+-------------------------------------------------------------------
 Thu Aug  9 16:20:48 CEST 2007 - jsrain@suse.cz
 
 - added timezone and keyboard configuration to the installatoin
