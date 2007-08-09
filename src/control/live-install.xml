@@ -89,6 +89,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 	<label>Save configuration</label>
 	<steps config:type="list">
 	  <step>ldconfig</step>
+	  <step>live_save_config</step>
 	</steps>
       </inst_finish_stage>
       <inst_finish_stage>
@@ -122,6 +123,8 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 <proposal_module>hwinfo</proposal_module>
                 <proposal_module>partitions</proposal_module>
                 <proposal_module>bootloader</proposal_module>
+                <proposal_module>keyboard</proposal_module>
+                <proposal_module>timezone</proposal_module>
             </proposal_modules>
         </proposal>
     </proposals>

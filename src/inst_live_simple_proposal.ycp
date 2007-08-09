@@ -12,6 +12,8 @@ import "LiveInstaller";
 import "Storage";
 import "HTML";
 import "Label";
+import "Keyboard";
+import "Timezone";
 
 textdomain "live-installer";
 
@@ -33,6 +35,20 @@ WFM::CallFunction ( "partitions_proposal",
 );
 
 WFM::CallFunction ( "bootloader_proposal",
+    [ "MakeProposal", $[
+	"force_reset" : false,
+	"language_changed" : false ]
+    ]
+);
+
+WFM::CallFunction ( "timezone_proposal",
+    [ "MakeProposal", $[
+	"force_reset" : false,
+	"language_changed" : false ]
+    ]
+);
+
+WFM::CallFunction ( "keyboard_proposal",
     [ "MakeProposal", $[
 	"force_reset" : false,
 	"language_changed" : false ]
@@ -89,7 +105,7 @@ foreach (map<string,any> s, BootCommon::sections, {
 	other = true;
 });
 
-contents = add (contents, `VSpacing (2));
+contents = add (contents, `VSpacing (1));
 contents = add (contents, `Left (`Heading (_("System start-up"))));
 contents = add (contents, `Left (`Label (other
     ? _("Ask whether to boot Linux or existing system")
@@ -97,6 +113,20 @@ contents = add (contents, `Left (`Label (other
 contents = add (contents, `Left (`Label (sformat (_("System start time-out: %1 seconds"), timeout))));
 
 // end of bootloader summary
+// keyboard entry
+
+contents = add (contents, `VSpacing (1));
+contents = add (contents, `Left (`Heading (_("Keyboard"))));
+contents = add (contents, `Left (`Label (Keyboard::MakeProposal (false, false))));
+
+// end of keyboard entry
+// timezone entry
+
+contents = add (contents, `VSpacing (1));
+contents = add (contents, `Left (`Heading (_("Time Zone"))));
+contents = add (contents, `Left (`Label (Timezone::timezone)));
+
+// end of timezone entry
 
 contents = `HBox (`HSpacing (2), contents, `HSpacing (2));
 contents = `VBox (
