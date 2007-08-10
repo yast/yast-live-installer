@@ -14,7 +14,7 @@
 
 {
 
-textdomain "installation";
+textdomain "live-installer";
 
 import "Progress";
 import "Timezone";
