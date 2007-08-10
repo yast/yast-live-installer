@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Aug 10 12:33:18 CEST 2007 - jsrain@suse.cz
+
+- fixed several textdomains
+
+-------------------------------------------------------------------
 Thu Aug  9 19:34:13 CEST 2007 - jsrain@suse.cz
 
 - do inform about missing cmdline interface instead of starting
