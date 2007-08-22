@@ -145,6 +145,10 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 	            <label>Welcome</label>
                     <name>inst_live_welcome</name>
                 </module>
+                 <module>
+	            <label>License Agreement</label>
+                    <name>inst_license</name>
+                </module>
                 <module>
 	            <label>Installation Settings</label>
                     <name>inst_live_simple_proposal</name>
