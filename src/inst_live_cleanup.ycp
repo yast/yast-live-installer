@@ -13,6 +13,7 @@ textdomain "live-installer";
 if(GetInstArgs::going_back())
     return `auto;
 
+// calling RPM is faster than initializing whole update stack
 y2milestone ("Removing yast2-live-installer package");
 
 map out = (map)SCR::Execute (.target.bash_output, "/bin/rpm -e yast2-live-installer");
