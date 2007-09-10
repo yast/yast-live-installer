@@ -1,0 +1,25 @@
+/**
+ *
+ */
+{
+
+import "GetInstArgs";
+import "Popup";
+import "Product";
+import "Wizard";
+
+textdomain "live-installer";
+
+if(GetInstArgs::going_back())
+    return `auto;
+
+y2milestone ("Removing yast2-live-installer package");
+
+map out = (map)SCR::Execute (.target.bash_output, "/bin/rpm -e yast2-live-installer");
+
+if (out["exit"]:0 != 0)
+    y2error ("Removing yast2-live-installer failed: %1", out);
+
+return `auto;
+
+}
