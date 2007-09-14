@@ -2,6 +2,8 @@
 Fri Sep 14 14:03:16 CEST 2007 - locilka@suse.cz
 
 - Adding inst_live_cleanup scipt into the RPM package (#310521).
+- Client inst_fam removed from control file (#310359).
+- 2.15.9
 
 -------------------------------------------------------------------
 Mon Sep 10 13:29:07 CEST 2007 - jsrain@suse.cz
