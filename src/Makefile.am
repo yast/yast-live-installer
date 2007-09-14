@@ -13,7 +13,8 @@ client_DATA =			\
 	live_runme_at_boot_finish.ycp	\
 	inst_live_welcome.ycp		\
 	inst_live_full_proposal.ycp	\
-	inst_live_simple_proposal.ycp
+	inst_live_simple_proposal.ycp	\
+	inst_live_cleanup.ycp
 
 desktop_DATA =			\
 	live-installer.desktop
