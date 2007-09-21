@@ -7,11 +7,25 @@ import "GetInstArgs";
 import "Popup";
 import "Product";
 import "Wizard";
+import "FileUtils";
 
 textdomain "live-installer";
 
 if(GetInstArgs::going_back())
     return `auto;
+
+// bugzilla #326800
+// Call a script if it exists
+string scriptname = "/usr/bin/correct_live_install";
+
+if (FileUtils::Exists (scriptname)) {
+    y2milestone ("Calling %1 returned %2",
+	scriptname,
+	SCR::Execute (.target.bash_output, scriptname)
+    );
+} else {
+    y2milestone ("Script %1 doesn't exist, skipping...", scriptname);
+}
 
 // calling RPM is faster than initializing whole update stack
 y2milestone ("Removing yast2-live-installer package");

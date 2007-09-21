@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Sep 21 11:03:10 CEST 2007 - locilka@suse.cz
+
+- Calling /usr/bin/correct_live_install script if it exists
+  (#326800).
+- 2.15.10
+
+-------------------------------------------------------------------
 Fri Sep 14 14:03:16 CEST 2007 - locilka@suse.cz
 
 - Adding inst_live_cleanup scipt into the RPM package (#310521).
