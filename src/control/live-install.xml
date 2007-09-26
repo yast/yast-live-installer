@@ -149,6 +149,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 	            <label>License Agreement</label>
                     <name>inst_license</name>
                 </module>
+<!--
                 <module>
 	            <label>Installation Settings</label>
                     <name>inst_live_simple_proposal</name>
@@ -157,6 +158,12 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
                 <module>
 	            <label>Installation Settings</label>
                     <name>inst_live_full_proposal</name>
+                    <proposal>initial</proposal>
+                </module>
+-->
+                <module>
+	            <label>Installation Settings</label>
+                    <name>inst_proposal</name>
                     <proposal>initial</proposal>
                 </module>
                 <module>

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep 26 15:12:33 CEST 2007 - jsrain@suse.cz
+
+- go directly to full installation proposal (#310883)
+- 2.15.11
+
+-------------------------------------------------------------------
 Fri Sep 21 11:03:10 CEST 2007 - locilka@suse.cz
 
 - Calling /usr/bin/correct_live_install script if it exists
