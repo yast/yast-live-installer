@@ -14,7 +14,8 @@ client_DATA =			\
 	inst_live_welcome.ycp		\
 	inst_live_full_proposal.ycp	\
 	inst_live_simple_proposal.ycp	\
-	inst_live_cleanup.ycp
+	inst_live_cleanup.ycp		\
+	inst_live_prepare_net_test.ycp
 
 desktop_DATA =			\
 	live-installer.desktop

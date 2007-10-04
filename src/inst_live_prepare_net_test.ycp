@@ -1,0 +1,44 @@
+/**
+ * File:	clients/inst_live_prepare_net_test.ycp
+ * Package:	Network configuration
+ * Summary:	Configuration dialogs for installation
+ * Authors:	Michal Svec <msvec@suse.cz>
+ *		Arvin Schnell <arvin@suse.de>
+ *
+ * $Id: inst_ask_net_test.ycp 27667 2006-02-07 10:33:15Z mvidner $
+ */
+
+{
+
+textdomain "network";
+
+import "GetInstArgs";
+import "Internet";
+import "Mode";
+
+include "network/routines.ycp";
+include "network/installation/dialogs.ycp";
+
+if(GetInstArgs::going_back())
+    return `auto;
+
+if (Mode::update ())
+{
+    // FIXME should be made somewhere else
+
+    y2milestone ("starting network");
+    SCR::Execute (.target.bash, "/sbin/rcnetwork start");
+    sleep (1);
+}
+
+/* Nothing to test */
+if(!Internet::FindFastest())
+{
+    Internet::do_test = false;
+    return `auto;
+}
+
+return `next;
+
+/* EOF */
+}
