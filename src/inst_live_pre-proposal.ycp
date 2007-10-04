@@ -1,0 +1,51 @@
+/**
+ * Steps that need to be done before the installation proposal is called
+ */
+{
+
+    import "GetInstArgs";
+    import "Kernel";
+
+    // <-- functions -->
+
+    void SetVGAKernelParam () {
+	string cmldline = (string) WFM::Read (.local.string, "/proc/cmdline");
+
+	if (cmldline == nil) {
+	    y2error ("No cmdline!");
+	    return;
+	}
+
+	list <string> cmdline_args = splitstring (cmldline, " \t\n");
+
+	string just_parsing = "";
+
+	foreach (string cmdline_arg, cmdline_args, {
+	    if (regexpmatch (cmdline_arg, "[vV][gG][aA]=.*")) {
+		just_parsing = cmdline_arg;
+		cmdline_arg = regexpsub (cmdline_arg, "[vV][gG][aA]=(.*)", "\\1");
+
+		if (cmdline_arg == nil || cmdline_arg == "") {
+		    y2error ("Incorrect vga param %1", just_parsing);
+		    break;
+		} else {
+		    y2milestone ("Adjusting Kernel cmdline vga=%1", cmdline_arg);
+		    Kernel::SetVgaType (cmdline_arg);
+		    break;
+		}
+	    }
+	});
+    }
+
+    // <-- functions -->
+
+    if (GetInstArgs::going_back()) {
+	y2milestone ("going back...");
+	return `back;
+    }
+
+    // bugzilla #297612
+    SetVGAKernelParam();
+
+    return `next;
+}
