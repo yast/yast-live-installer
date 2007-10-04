@@ -163,6 +163,10 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 -->
                 <module>
 	            <label>Installation Settings</label>
+                    <name>inst_live_pre-proposal</name>
+                </module>
+                <module>
+	            <label>Installation Settings</label>
                     <name>inst_proposal</name>
                     <proposal>initial</proposal>
                 </module>

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Oct  4 14:26:12 CEST 2007 - locilka@suse.cz
+
+- Adding missing live_save_config_finish script (#310517).
+- Adding new inst_live_pre-proposal script that adjusts Kernel
+  vga parameter according to /proc/cmdline (#297612).
+- 2.15.13
+
+-------------------------------------------------------------------
 Wed Sep 26 17:16:13 CEST 2007 - jsrain@suse.cz
 
 - added missing step to prepare internet test (#325560)
