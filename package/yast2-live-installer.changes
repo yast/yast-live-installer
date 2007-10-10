@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
-Wed Oct 10 10:29:13 CEST 2007 - jsrain@suse.cz
+Wed Oct 10 12:46:18 CEST 2007 - jsrain@suse.cz
 
 - added registration to the live installation workflow (#325560)
+- issue warning if DMRAID detected (#328388)
 
 -------------------------------------------------------------------
 Thu Oct  4 14:26:12 CEST 2007 - locilka@suse.cz
