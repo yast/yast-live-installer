@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Oct 10 10:29:13 CEST 2007 - jsrain@suse.cz
+
+- added registration to the live installation workflow (#325560)
+
+-------------------------------------------------------------------
 Thu Oct  4 14:26:12 CEST 2007 - locilka@suse.cz
 
 - Adding missing live_save_config_finish script (#310517).
