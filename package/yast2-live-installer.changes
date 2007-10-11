@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Oct 11 15:02:18 CEST 2007 - jsrain@suse.cz
+
+- save X11 keyboard configuration (#310517)
+- 2.15.15
+
+-------------------------------------------------------------------
 Wed Oct 10 12:46:18 CEST 2007 - jsrain@suse.cz
 
 - added registration to the live installation workflow (#325560)
