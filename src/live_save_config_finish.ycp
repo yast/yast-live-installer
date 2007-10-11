@@ -19,6 +19,7 @@ textdomain "live-installer";
 import "Progress";
 import "Timezone";
 import "Keyboard";
+import "Installation";
 
 any ret = nil;
 string func = "";
@@ -47,6 +48,10 @@ else if (func == "Write")
     // progress step title
     Progress::Title (_("Saving keyboard configuration..."));
     Keyboard::Save(true);
+    // to save also X11 configuration
+    Keyboard::xf86_update();
+    // unfortunatelly it is saved to local system instead the target, therefore need to copy
+    WFM::Execute (.local.bash, sformat ("/bin/cp /etc/X11/xorg.conf %1/etc/X11/xorg.conf", Installation::destdir));
     Progress::NextStep ();
      // progress step title
     Progress::Title (_("Saving time zone..."));

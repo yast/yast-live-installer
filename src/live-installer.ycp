@@ -14,7 +14,6 @@
     import "LiveInstaller";
     import "Misc";
     import "Installation";
-    import "Storage";
     import "Product";
     import "CommandLine";
     import "Popup";
@@ -32,6 +31,7 @@
     Wizard::OpenNextBackStepsDialog();
     Installation::destdir = "/mnt";
     Installation::scr_destdir = "/mnt";
+    import "Storage";
 
     // do several checks because of DMRAID problems - bug #328388
     map out = (map)SCR::Execute (.target.bash_output, "
