@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Nov  2 16:41:13 CET 2007 - locilka@suse.cz
+
+- Adjusted RPM dependencies, adjusted YCP clients (YCP module
+  Internet has been moved to yast2 from yast2-network, some
+  functions were moved to InternetDevices module).
+- 2.16.0
+
+-------------------------------------------------------------------
 Thu Oct 11 15:02:18 CEST 2007 - jsrain@suse.cz
 
 - save X11 keyboard configuration (#310517)
