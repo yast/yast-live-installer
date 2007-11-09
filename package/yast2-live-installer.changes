@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Nov  9 12:24:27 CET 2007 - jsrain@suse.cz
+
+- removed hack for product name initialization (#297609)
+
+-------------------------------------------------------------------
 Fri Nov  2 16:41:13 CET 2007 - locilka@suse.cz
 
 - Adjusted RPM dependencies, adjusted YCP clients (YCP module
