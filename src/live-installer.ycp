@@ -59,10 +59,6 @@ Continuing the installation may cause data loss.")))
 	}
     }
 
-
-    // FIXME hack because of bootloader - libzypp does not contain product database
-    Product::name = "openSUSE";
-
     list<map> stage_mode = [
 	$["stage": "initial",  "mode": "live_installation" ],
 	$["stage": "continue",  "mode": "live_installation" ]
