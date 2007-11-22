@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 22 13:34:40 CET 2007 - locilka@suse.cz
+
+- Fixed link to online repositories (#342758).
+- 2.15.16
+
+-------------------------------------------------------------------
 Thu Oct 11 15:02:18 CEST 2007 - jsrain@suse.cz
 
 - save X11 keyboard configuration (#310517)

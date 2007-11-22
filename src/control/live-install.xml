@@ -40,8 +40,12 @@ textdomain="live-installer"
         <delete_old_packages config:type="boolean">true</delete_old_packages>
         <selection_type config:type="symbol">auto</selection_type>
 
+	<!-- Bugzilla #327791, if not set, default is true -->
+	<online_repos_preselected config:type="boolean">false</online_repos_preselected>
+
 	<!-- FATE #300898, List of external sources accesible during the installaion time -->
-	<external_sources_link>http://seven-swords.net/Repos/openSUSE_10.3/testing_list_of_repositories.xml</external_sources_link>
+	<external_sources_link>http://download.opensuse.org/YaST/Repos/openSUSE_103_Servers.xml</external_sources_link>
+
 	<base_repo_url>http://ftp.opensuse.org/pub/opensuse/distribution/SL-OSS-factory/inst-source/</base_repo_url>
     </software>
 
