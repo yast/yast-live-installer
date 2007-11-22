@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Nov 22 13:33:24 CET 2007 - locilka@suse.cz
+
+- Fixed link to online repositories.
+
+-------------------------------------------------------------------
 Fri Nov  9 12:24:27 CET 2007 - jsrain@suse.cz
 
 - removed hack for product name initialization (#297609)
