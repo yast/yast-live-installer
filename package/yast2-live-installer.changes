@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
 Thu Nov 22 13:33:24 CET 2007 - locilka@suse.cz
 
-- Fixed link to online repositories.
+- Fixed link to online repositories (#342758).
+- Fixed texts in installation control file.
 
 -------------------------------------------------------------------
 Fri Nov  9 12:24:27 CET 2007 - jsrain@suse.cz

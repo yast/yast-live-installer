@@ -83,7 +83,7 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 
     <inst_finish_stages config:type="list">
       <inst_finish_stage>
-	<label>Copy files to installed system"</label>
+	<label>Copy files to installed system</label>
 	<steps config:type="list">
 	  <step>live_copy_files</step>
 	  <step>switch_scr</step>
@@ -97,13 +97,13 @@ After clicking &lt;b&gt;Finish&lt;/b&gt;, you can log in to the system.&lt;/p&gt
 	</steps>
       </inst_finish_stage>
       <inst_finish_stage>
-	<label>Install boot manager"</label>
+	<label>Install boot manager</label>
 	<steps config:type="list">
 	  <step>bootloader</step>
 	</steps>
       </inst_finish_stage>
       <inst_finish_stage>
-	<label>Prepare system for initial boot"</label>
+	<label>Prepare system for initial boot</label>
 	<steps config:type="list">
 	  <step>live_runme_at_boot</step>
 <!--
