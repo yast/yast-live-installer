@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Nov 30 08:54:49 CET 2007 - jsrain@suse.cz
+
+- fixed message at the end of installation (#343802)
+
+-------------------------------------------------------------------
 Thu Nov 22 13:33:24 CET 2007 - locilka@suse.cz
 
 - Fixed link to online repositories (#342758).

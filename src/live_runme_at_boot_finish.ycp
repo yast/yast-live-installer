@@ -64,7 +64,11 @@ else if (func == "Write")
     }
     // FIXME doesn't belong here
     Misc::boot_msg = _("Reboot the computer without the Live CD in the drive
-to continue the installation.");
+to continue the installation.
+
+Note that the CD cannot be ejected now. You can eject
+it after the Live system shuts down or select
+\"Hard Disk\" in the boot menu of the Live CD.");
 }
 else
 {
