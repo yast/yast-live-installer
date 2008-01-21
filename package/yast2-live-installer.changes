@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 21 17:37:40 CET 2008 - jsrain@suse.cz
+
+- added missing slash in "/dev/null"
+
+-------------------------------------------------------------------
 Fri Nov 30 08:54:49 CET 2007 - jsrain@suse.cz
 
 - fixed message at the end of installation (#343802)

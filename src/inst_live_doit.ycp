@@ -104,7 +104,7 @@ boolean FileSystemCopy (string from, string to,
 list<string> LinksToCopyList () {
     string cmd = sformat ("
 	for LINK in `find %1 -xdev -type l` ; do
-	    stat -c \"%%N\" $LINK |grep livecd >/devnull 2>/devnull && echo $LINK;
+	    stat -c \"%%N\" $LINK |grep livecd >/dev/null 2>/dev/null && echo $LINK;
 	done; exit 0", Installation::destdir);
     y2milestone ("Executing %1", cmd);
     map out = (map)SCR::Execute (.target.bash_output, cmd);
