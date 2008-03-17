@@ -22,3 +22,4 @@ Exec=/sbin/yast2 live-installer
 Name=Live Installer
 GenericName=Install current configuration to your system
 X-KDE-SubstituteUID=true
+StartupNotify=true
