@@ -29,5 +29,4 @@ Summary:	Configuration of live-installer
 @clientdir@/*.ycp
 @moduledir@/LiveInstaller.*
 @desktopdir@/live-installer.desktop
-/etc/YaST2/live-install.xml
 %doc @docdir@
