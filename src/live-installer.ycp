@@ -69,7 +69,7 @@ Continuing the installation may cause data loss.")))
     Stage::Set ("initial");
     Storage::InitLibstorage ();
 
-    ProductControl::custom_control_file = LiveInstaller::live_control_file;
+//    ProductControl::custom_control_file = LiveInstaller::live_control_file;
     if (!ProductControl::Init())
         y2error("control file %1 not found", ProductControl::custom_control_file );
     ProductControl::AddWizardSteps(stage_mode);
