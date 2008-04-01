@@ -40,7 +40,7 @@ if (func == "Info")
 {
     return (any)$[
 	"steps" : 1,
-	"when" : [ `installation, `update, `autoinst ],
+	"when" : [ `live_installation ],
     ];
 }
 else if (func == "Write")

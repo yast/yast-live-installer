@@ -49,7 +49,7 @@ if (func == "Info")
 	"steps" : 1,
 	// progress step title
 	"title" : _("Copying files to installed system..."),
-	"when" : [ `installation, `update, `autoinst ],
+	"when" : [ `live_installation ],
     ];
 }
 else if (func == "Write")

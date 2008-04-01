@@ -43,7 +43,7 @@ if (func == "Info")
 	"steps" : 1,
 	// progress step title
 	"title" : _("Writing YaST Configuration..."),
-	"when" : [ `installation, `update, `autoinst ],
+	"when" : [ `live_installation ],
     ];
 }
 else if (func == "Write")

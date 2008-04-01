@@ -1,7 +1,5 @@
 # Makefile.am for live-installer/src
 
-SUBDIRS = control
-
 yncludedir = @yncludedir@/live-installer
 
 client_DATA =			\
