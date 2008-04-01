@@ -3,6 +3,7 @@ Tue Apr  1 12:38:36 CEST 2008 - jsrain@suse.cz
 
 - merged live installation control file to default control file
 - updated inst_finish steps handling
+- 2.16.2
 
 -------------------------------------------------------------------
 Mon Mar 17 12:43:32 CET 2008 - jsrain@suse.cz
