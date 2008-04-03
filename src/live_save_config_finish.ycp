@@ -39,12 +39,17 @@ y2debug("param=%1", param);
 if (func == "Info")
 {
     return (any)$[
-	"steps" : 1,
+	"steps" : 3,
 	"when" : [ `live_installation ],
     ];
 }
 else if (func == "Write")
 {
+    // progress step title
+    Progress::Title (_("Saving language..."));
+    Language::Save();
+    Progress::NextStep ();
+
     // progress step title
     Progress::Title (_("Saving keyboard configuration..."));
     Keyboard::Save(true);
@@ -53,6 +58,7 @@ else if (func == "Write")
     // unfortunatelly it is saved to local system instead the target, therefore need to copy
     WFM::Execute (.local.bash, sformat ("/bin/cp /etc/X11/xorg.conf %1/etc/X11/xorg.conf", Installation::destdir));
     Progress::NextStep ();
+
      // progress step title
     Progress::Title (_("Saving time zone..."));
     Timezone::Save();

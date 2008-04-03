@@ -69,6 +69,9 @@ Continuing the installation may cause data loss.")))
     Stage::Set ("initial");
     Storage::InitLibstorage ();
 
+    ProductControl::DisableAllModulesAndProposals ("live_installation", "continue");
+    ProductControl::EnableModule ("automatic_configuration");
+
 //    ProductControl::custom_control_file = LiveInstaller::live_control_file;
     if (!ProductControl::Init())
         y2error("control file %1 not found", ProductControl::custom_control_file );
@@ -78,7 +81,6 @@ Continuing the installation may cause data loss.")))
     Report::LogMessages(true);
     Report::LogErrors(true);
     Report::LogWarnings(true);
-
 
     symbol ret = ProductControl::Run();
     y2milestone("ProductControl::Run() returned: %1", ret);
