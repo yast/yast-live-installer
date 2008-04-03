@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Apr  3 14:56:39 CEST 2008 - jsrain@suse.cz
+
+- save time zone during installation
+- use proper 2nd stage workflow
+
+-------------------------------------------------------------------
 Tue Apr  1 12:38:36 CEST 2008 - jsrain@suse.cz
 
 - merged live installation control file to default control file
