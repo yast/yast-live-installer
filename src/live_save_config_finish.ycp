@@ -20,6 +20,7 @@ import "Progress";
 import "Timezone";
 import "Keyboard";
 import "Installation";
+import "Language";
 
 any ret = nil;
 string func = "";
