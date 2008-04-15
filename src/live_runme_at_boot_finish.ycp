@@ -67,7 +67,7 @@ else if (func == "Write")
 to continue the installation.
 
 Note that the CD cannot be ejected now. You can eject
-it after the Live system shuts down or select
+it after the Live system shuts down or by selecting
 \"Hard Disk\" in the boot menu of the Live CD.");
 }
 else
