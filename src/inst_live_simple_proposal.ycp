@@ -109,7 +109,7 @@ contents = add (contents, `VSpacing (1));
 contents = add (contents, `Left (`Heading (_("System start-up"))));
 contents = add (contents, `Left (`Label (other
     ? _("Ask whether to boot Linux or existing system")
-    : _("Boot only Linux" ))));
+    : _("Boot only Linux"))));
 contents = add (contents, `Left (`Label (sformat (_("System start time-out: %1 seconds"), timeout))));
 
 // end of bootloader summary
@@ -142,11 +142,11 @@ string help = _("<p>
 Use <b>Accept</b> to perform a new installation with the values displayed.</p>")
 // help text 2/3
 + _("<p>
-Change the values by clicking on the respective headline
-or by using the <b>Change Installation Settings</b> button.</p>")
+To change the values click the respective headline
+or by press the <b>Change Installation Settings</b> button.</p>")
 // help text 3/3
 + _("<p>
-Your hard disk has not been modified in any way, so you can still safely abort.
+Your hard disk has not been modified, you can still safely abort.
 </p>");
 
 
