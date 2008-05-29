@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu May 29 10:59:30 CEST 2008 - jsrain@suse.cz
+
+- call boot.dmraid start at the beginning of live installation
+  (bnc #394660)
+- 2.16.5
+
+-------------------------------------------------------------------
 Fri May 16 16:40:22 CEST 2008 - jsrain@suse.cz
 
 - added categories Settings and System into desktop file

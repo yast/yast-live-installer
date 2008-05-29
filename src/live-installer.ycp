@@ -36,6 +36,7 @@
     // do several checks because of DMRAID problems - bug #328388
     map out = (map)SCR::Execute (.target.bash_output, "
 /etc/init.d/boot.device-mapper start
+/etc/init.d/boot.dmraid start
 /etc/init.d/boot.lvm start
 echo 1 > /sys/module/md_mod/parameters/start_ro
 mdadm --examine --scan --config=partitions >/tmp/mdadm.conf
