@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug 07 18:38:07 CEST 2008 - aschnell@suse.de
+
+- adapted to changes in yast2-storage
+- 2.17.0
+
+-------------------------------------------------------------------
 Thu May 29 10:59:30 CEST 2008 - jsrain@suse.cz
 
 - call boot.dmraid start at the beginning of live installation

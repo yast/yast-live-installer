@@ -68,7 +68,7 @@ Continuing the installation may cause data loss.")))
     Mode::SetMode ("live_installation");
     // Stage::initial is required for most of the modules to behave correctly
     Stage::Set ("initial");
-    Storage::InitLibstorage ();
+    Storage::InitLibstorage (false);
 
     if (!ProductControl::Init())
         y2error("control file %1 not found", ProductControl::custom_control_file );
