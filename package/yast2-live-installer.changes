@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Nov 13 16:33:33 CET 2008 - jsrain@suse.cz
+
+- disable desktop automounter and warn if removable medias are
+  mounted (bnc #437235)
+- 2.17.2
+
+-------------------------------------------------------------------
 Tue Nov  4 11:59:02 CET 2008 - jsrain@suse.cz
 
 - display a warning if low amount of memory is detected

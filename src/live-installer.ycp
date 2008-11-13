@@ -51,6 +51,25 @@ Before continuing, finish all running applications."), "1 GB")))
     Installation::scr_destdir = "/mnt";
     import "Storage";
 
+    Storage::SwitchUiAutomounter(false);
+
+    // detect removable media, if they are mounted, they cannot be used for installation (bnc #437235)
+    // this is a hack, since partitioner cannot provide information which partitions will be resized,
+    // removed or formatted and thus mustn't be mounted during installation
+    string cmd = "cat /proc/mounts  |grep '\/media\/'";
+    if (0 == (integer)SCR::Execute (.target.bash, cmd))
+    {
+	// continue/cancel pop-up
+	if (! Popup::ContinueCancel (_("YaST detected a mounted removable media. YaST cannot install
+the system on media which is mounted.
+To install the system on these media, unmount them first.")))
+	{
+	    Storage::SwitchUiAutomounter(true);
+	    UI::CloseDialog();
+	    return nil;
+	}
+    }
+
     // do several checks because of DMRAID problems - bug #328388
     map out = (map)SCR::Execute (.target.bash_output, "
 /etc/init.d/boot.device-mapper start
@@ -73,6 +92,7 @@ _("openSUSE installer detected DMRAID array.
 It is not supported by the openSUSE live installer.
 Continuing the installation may cause data loss.")))
 	{
+	    Storage::SwitchUiAutomounter(true);
 	    UI::CloseDialog ();
 	    return `back;
 	}
@@ -103,6 +123,7 @@ Continuing the installation may cause data loss.")))
     Pkg::SourceFinishAll();
     Pkg::TargetFinish();
 
+    Storage::SwitchUiAutomounter(true);
     UI::CloseDialog();
 
     return ret;
