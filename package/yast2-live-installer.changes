@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan  6 14:41:29 CET 2009 - jsrain@suse.cz
+
+- disable all repos before installation, reenable afterwards
+  (bnc #450228)
+
+-------------------------------------------------------------------
 Thu Nov 13 16:33:33 CET 2008 - jsrain@suse.cz
 
 - disable desktop automounter and warn if removable medias are
