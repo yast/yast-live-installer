@@ -10,6 +10,7 @@ import "Installation";
 import "Progress";
 import "Wizard";
 import "ImageInstallation";
+import "LiveInstaller";
 
 Installation::destdir = "/mnt";
 
@@ -130,6 +131,14 @@ Progress::NextStageStep (10);
 CopySymlinkedImage (copy_map, 5 + step_size);
 Progress::Finish();
 Progress::Title (_("Finished."));
+
+// reenable sources/services before their status gets stored in the target system
+Pkg::SourceEditSet (LiveInstaller::source_states);
+foreach (string s, map<string,any> state, LiveInstaller::service_states, {
+    Pkg::ServiceSet (s, state);
+    Pkg::ServiceSave (s);
+});
+
 
 return `next;
 
