@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan  9 11:42:33 CET 2009 - jsrain@suse.de
+
+- optionally eject CD and reboot after the end of live installation
+  (bnc #455760)
+
+-------------------------------------------------------------------
 Tue Jan  6 14:41:29 CET 2009 - jsrain@suse.cz
 
 - disable all repos before installation, reenable afterwards
