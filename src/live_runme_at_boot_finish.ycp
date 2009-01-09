@@ -63,12 +63,12 @@ else if (func == "Write")
         y2error ("Couldn't create target %1", Installation::file_live_install_mode );
     }
     // FIXME doesn't belong here
-    Misc::boot_msg = _("Reboot the computer without the Live CD in the drive
+    Misc::boot_msg = "";/*_("Reboot the computer without the Live CD in the drive
 to continue the installation.
 
 Note that the CD cannot be ejected now. You can eject
 it after the Live system shuts down or by selecting
-\"Hard Disk\" in the boot menu of the Live CD.");
+\"Hard Disk\" in the boot menu of the Live CD.");*/
 }
 else
 {
