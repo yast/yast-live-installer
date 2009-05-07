@@ -5,6 +5,7 @@
 # Internet and InternetDevices
 Requires:	yast2 >= 2.16.6
 Requires:	yast2-network >= 2.16.6
+Requires:	yast2-bootloader >= 2.18.7
 
 Requires:	yast2-bootloader yast2-country yast2-installation yast2-storage
 BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-testsuite

@@ -22,7 +22,7 @@ import "ProductControl";
 import "FileUtils";
 import "String";
 import "Initrd";
-import "BootCommon";
+import "BootStorage";
 // FIXME don't know why it fails :-(
 // import "SystemFilesCopy";
 
@@ -83,7 +83,7 @@ else if (func == "Write")
     }
 
     // FIXME belongs somewhere else
-    Initrd::SetAdditionalParameters (Initrd::AdditionalParameters () + " -d " + BootCommon::RootPartitionDevice);
+    Initrd::SetAdditionalParameters (Initrd::AdditionalParameters () + " -d " + BootStorage::RootPartitionDevice);
 
 }
 else
