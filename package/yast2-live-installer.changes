@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May  7 15:41:32 CEST 2009 - jsrain@suse.cz
+
+- adapted to changes in yast2-bootloader
+- 2.18.1
+
+-------------------------------------------------------------------
 Fri Jan  9 11:42:33 CET 2009 - jsrain@suse.de
 
 - optionally eject CD and reboot after the end of live installation
