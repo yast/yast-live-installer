@@ -11,6 +11,7 @@ import "Progress";
 import "Wizard";
 import "ImageInstallation";
 import "LiveInstaller";
+import "SlideShow";
 
 Installation::destdir = "/mnt";
 
@@ -72,7 +73,10 @@ boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start)
     integer progress_step = (100-progress_start) * index / size (symlinks);
     foreach (string link, string target, symlinks, {
 	index = index + 1;
-	Progress::Title (sformat (_("Copying %1..."), link));
+	SlideShow::StageProgress( progress_start, nil);
+	SlideShow::SubProgress( 0, sformat (_("Copying %1..."), link));
+	SlideShow::AppendMessageToInstLog (sformat (_("Copying %1..."), link));
+//	Progress::Title (sformat (_("Copying %1..."), link));
 	SCR::Execute (.target.remove, sformat ("%1/%2", Installation::destdir, link));
 /*
 	list<string> components = splitstring (link, "/");
@@ -88,7 +92,9 @@ boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start)
 	integer progress_done = progress_start + progress_step;
 	ImageInstallation::FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link), progress_start, progress_done);
 	progress_start = progress_done;
-	Progress::Step (progress_start);
+//	Progress::Step (progress_start);
+	SlideShow::StageProgress( progress_done, nil);
+	SlideShow::SubProgress( 100, nil);
     });
     return true;
 }
@@ -104,7 +110,7 @@ boolean CopyRootImage (integer progress_start, integer progress_finish) {
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", tmpdir, Installation::destdir));
     return true;
 }
-
+/*
 Progress::New(
     // Headline for last dialog of base installation: Install LILO etc.
     _("Copying the Live Image to Hard Disk"),
@@ -119,18 +125,27 @@ Wizard::DisableNextButton ();
 
 Progress::NextStage ();
 Progress::Title (_("Evaluating filesystems to copy..."));
+*/
+SlideShow::MoveToStage( "images" );
+SlideShow::StageProgress( 0, _("Evaluating filesystems to copy...") );
+SlideShow::AppendMessageToInstLog (_("Evaluating filesystems to copy..."));
 map<string,string> copy_map = LinksMap (LinksToCopyList ());
+SlideShow::SubProgress( 0, _("Copying root filesystem..."));
+SlideShow::AppendMessageToInstLog (_("Copying root filesystem..."));
+SlideShow::StageProgress( 5, _("Copying live image..."));
+/*
 Progress::NextStageStep (5);
 Progress::Title (_("Copying root filesystem..."));
+*/
 
 integer steps = size (copy_map) + 1;
 integer step_size = 95 / steps;
 
 CopyRootImage (5, 5 + step_size);
-Progress::NextStageStep (10);
+//Progress::NextStageStep (10);
 CopySymlinkedImage (copy_map, 5 + step_size);
-Progress::Finish();
-Progress::Title (_("Finished."));
+//Progress::Finish();
+//Progress::Title (_("Finished."));
 
 // reenable sources/services before their status gets stored in the target system
 Pkg::SourceEditSet (LiveInstaller::source_states);
