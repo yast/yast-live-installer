@@ -14,6 +14,7 @@ client_DATA =			\
 	inst_live_simple_proposal.ycp	\
 	inst_live_cleanup.ycp		\
 	inst_live_prepare_net_test.ycp	\
+	inst_live_prepareprogress.ycp	\
 	live_save_config_finish.ycp	\
 	inst_live_pre-proposal.ycp
 
