@@ -17,7 +17,8 @@ BuildArchitectures:	noarch
 Summary:	YaST2 - Installation from Live Media
 
 %description
--
+This package contains the YaST component to deploy a live media to the
+hard disk of the computer.
 
 @PREP@
 
