@@ -14,7 +14,7 @@ BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-t
 
 BuildArchitectures:	noarch
 
-Summary:	Configuration of live-installer
+Summary:	YaST2 - Installation from Live Media
 
 %description
 -
