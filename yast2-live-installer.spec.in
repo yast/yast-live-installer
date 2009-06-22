@@ -1,6 +1,7 @@
 @HEADER-COMMENT@
 
 @HEADER@
+License: GPL v2 or later
 
 # Internet and InternetDevices
 Requires:	yast2 >= 2.16.6
