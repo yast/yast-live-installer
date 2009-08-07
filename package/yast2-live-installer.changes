@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug  7 11:30:31 CEST 2009 - jsrain@suse.cz
+
+- use separate control file if present 
+  (/etc/YaST2/control-live.xml)
+- 2.18.3
+
+-------------------------------------------------------------------
 Thu Jun 11 13:40:23 CEST 2009 - jsrain@suse.cz
 
 - adapted for unified progress during live installation
