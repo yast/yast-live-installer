@@ -18,6 +18,8 @@
     import "CommandLine";
     import "Popup";
 
+    string live_control_file = "/etc/YaST2/control-live.xml";
+
     // Bugzilla #269890, CommanLine "support"
     // argmap is only a map, CommandLine uses string parameters
     if (size (WFM::Args()) > 0) {
@@ -124,6 +126,7 @@ Continuing the installation may cause data loss.")))
     Stage::Set ("initial");
     Storage::InitLibstorage (false);
 
+    ProductControl::custom_control_file = live_control_file;
     if (!ProductControl::Init())
         y2error("control file %1 not found", ProductControl::custom_control_file );
     ProductControl::AddWizardSteps(stage_mode);
