@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug  7 11:30:31 CEST 2009 - jsrain@suse.cz
+
+- use separate control file if present 
+ (/etc/YaST2/control-live.xml)
+- 2.17.3
+
+-------------------------------------------------------------------
 Thu Nov 13 16:33:33 CET 2008 - jsrain@suse.cz
 
 - disable desktop automounter and warn if removable medias are
