@@ -32,6 +32,17 @@
 
     Wizard::OpenNextBackStepsDialog();
 
+    if ($[] != (map)SCR::Read (.target.stat, live_control_file)) {
+	ProductControl::custom_control_file = live_control_file;
+        // replace general control file because of 2nd stage
+	integer cpres = (integer)SCR::Execute (.target.bash, sformat ("/bin/cp %1 %2", live_control_file, "/etc/YaST2/control.xml"));
+	if (cpres != 0)
+	{
+	    Report::Error (_("Failed to update the control file for the second stage of the installation"));
+	    return nil;
+	}
+    }
+
     // check available memory
     list memories = (list) SCR::Read(.probe.memory);
     integer memsize = memories[0,"resource","phys_mem",0,"range"]:0;
@@ -110,7 +121,6 @@ Continuing the installation may cause data loss.")))
     Stage::Set ("initial");
     Storage::InitLibstorage (false);
 
-    ProductControl::custom_control_file = live_control_file;
     if (!ProductControl::Init())
         y2error("control file %1 not found", ProductControl::custom_control_file );
     ProductControl::AddWizardSteps(stage_mode);
