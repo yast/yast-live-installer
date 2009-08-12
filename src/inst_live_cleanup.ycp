@@ -23,6 +23,10 @@ if (FileUtils::Exists (scriptname)) {
 	scriptname,
 	SCR::Execute (.target.bash_output, scriptname)
     );
+    y2milestone ("Removing %1 returned %2",
+	scriptname,
+	SCR::Execute (.target.bash_output, sformat ("/bin/rm %1", scriptname))
+    );
 } else {
     y2milestone ("Script %1 doesn't exist, skipping...", scriptname);
 }
@@ -34,6 +38,15 @@ map out = (map)SCR::Execute (.target.bash_output, "/bin/rpm -e yast2-live-instal
 
 if (out["exit"]:0 != 0)
     y2error ("Removing yast2-live-installer failed: %1", out);
+
+out = (map)SCR::Execute (.target.bash_output, "rpm -qa |grep '^control-live-'");
+if (out["exit"]:0 == 0)
+{
+    y2milestone ("Removing live control file");
+    out = (map)SCR::Execute (.target.bash_output, "rpm -e `rpm -qa |grep '^control-live-'`");
+    if (out["exit"]:0 != 0)
+	y2error ("Removing live control file failed: %1", out);
+}
 
 return `auto;
 
