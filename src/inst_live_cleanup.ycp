@@ -23,6 +23,10 @@ if (FileUtils::Exists (scriptname)) {
 	scriptname,
 	SCR::Execute (.target.bash_output, scriptname)
     );
+    y2milestone ("Removing %1 returned %2",
+	scriptname,
+	SCR::Execute (.target.bash_output, sformat ("/bin/rm %1", scriptname))
+    );
 } else {
     y2milestone ("Script %1 doesn't exist, skipping...", scriptname);
 }
