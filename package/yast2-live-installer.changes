@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Aug 12 08:57:23 CEST 2009 - jsrain@suse.cz
+
+- remove /usr/bin/correct_live_install after installation
+- 2.18.5
+
+-------------------------------------------------------------------
 Mon Aug 10 11:23:35 CEST 2009 - jsrain@suse.cz
 
 - adapted to changes in Keyboard,ycp (bnc#529175)
