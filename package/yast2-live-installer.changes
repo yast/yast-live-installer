@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug 20 13:16:39 CEST 2009 - jsrain@suse.cz
+
+- fixed calling the workflow modules (bnc#532502)
+- 2.18.6
+
+-------------------------------------------------------------------
 Wed Aug 12 08:57:23 CEST 2009 - jsrain@suse.cz
 
 - remove /usr/bin/correct_live_install after installation
