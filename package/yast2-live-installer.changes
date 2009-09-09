@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep  9 14:54:15 CEST 2009 - jsrain@suse.cz
+
+- enhanced error reporting (bnc#533601)
+- 2.18.7
+
+-------------------------------------------------------------------
 Thu Aug 20 13:16:39 CEST 2009 - jsrain@suse.cz
 
 - fixed calling the workflow modules (bnc#532502)
