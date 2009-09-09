@@ -12,6 +12,7 @@ import "Wizard";
 import "ImageInstallation";
 import "LiveInstaller";
 import "SlideShow";
+import "Report";
 
 Installation::destdir = "/mnt";
 
@@ -71,6 +72,7 @@ boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start)
     }
     integer index = 0;
     integer progress_step = (100-progress_start) * index / size (symlinks);
+    boolean ret = true;
     foreach (string link, string target, symlinks, {
 	index = index + 1;
 	SlideShow::StageProgress( progress_start, nil);
@@ -90,13 +92,13 @@ boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start)
 	link = mergestring (components, "/");
 */
 	integer progress_done = progress_start + progress_step;
-	ImageInstallation::FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link), progress_start, progress_done);
+	ret = ImageInstallation::FileSystemCopy ("/" + target, sformat ("%1/%2", Installation::destdir, link), progress_start, progress_done) && ret;
 	progress_start = progress_done;
 //	Progress::Step (progress_start);
 	SlideShow::StageProgress( progress_done, nil);
 	SlideShow::SubProgress( 100, nil);
     });
-    return true;
+    return ret;
 }
 
 /**
@@ -106,9 +108,9 @@ boolean CopySymlinkedImage (map<string,string> symlinks, integer progress_start)
 boolean CopyRootImage (integer progress_start, integer progress_finish) {
     string tmpdir = (string)SCR::Read (.target.tmpdir);
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", Installation::destdir, tmpdir));
-    ImageInstallation::FileSystemCopy ("/", Installation::destdir, progress_start, progress_finish);
+    boolean ret = ImageInstallation::FileSystemCopy ("/", Installation::destdir, progress_start, progress_finish);
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", tmpdir, Installation::destdir));
-    return true;
+    return ret;
 }
 /*
 Progress::New(
@@ -141,9 +143,19 @@ Progress::Title (_("Copying root filesystem..."));
 integer steps = size (copy_map) + 1;
 integer step_size = 95 / steps;
 
-CopyRootImage (5, 5 + step_size);
+if (! CopyRootImage (5, 5 + step_size))
+{
+    // error report
+    Report::Error (_("Copying the live image to hard disk failed."));
+    return `abort;
+}
 //Progress::NextStageStep (10);
-CopySymlinkedImage (copy_map, 5 + step_size);
+if (! CopySymlinkedImage (copy_map, 5 + step_size))
+{
+    // error report
+    Report::Error (_("Copying the live image to hard disk failed."));
+    return `abort;
+}
 //Progress::Finish();
 //Progress::Title (_("Finished."));
 
