@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Oct 30 13:46:38 CET 2009 - jsrain@suse.cz
+
+- call correct_live_for_reboot script before reboot (bnc#550874)
+- 2.18.8
+
+-------------------------------------------------------------------
 Wed Sep  9 14:54:15 CEST 2009 - jsrain@suse.cz
 
 - enhanced error reporting (bnc#533601)
