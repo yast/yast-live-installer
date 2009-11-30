@@ -21,6 +21,7 @@ import "Timezone";
 import "Keyboard";
 import "Installation";
 import "Language";
+import "FileUtils";
 
 any ret = nil;
 string func = "";
@@ -63,6 +64,23 @@ else if (func == "Write")
      // progress step title
     Progress::Title (_("Saving time zone..."));
     Timezone::Save();
+
+    // bnc#550874
+    // Call a script if it exists
+    string scriptname = "/usr/bin/correct_live_for_reboot";
+    if (FileUtils::Exists (scriptname)) {
+        y2milestone ("Calling %1 returned %2",
+            scriptname,
+            SCR::Execute (.target.bash_output, scriptname)
+        );
+        y2milestone ("Removing %1 returned %2",
+            scriptname,
+            SCR::Execute (.target.bash_output, sformat ("/bin/rm %1", scriptname))
+        );
+    } else {
+        y2milestone ("Script %1 doesn't exist, skipping...", scriptname);
+    }
+
 
 }
 else
