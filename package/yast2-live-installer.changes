@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Tue Jan  6 14:41:29 CET 2009 - jsrain@suse.cz
+Thu Jun 11 13:40:23 CEST 2009 - jsrain@suse.cz
 
 - disable all repos before installation, reenable afterwards
   (bnc #450228)
+- adapted for unified progress during live installation
+  (bnc#435680)
 
 -------------------------------------------------------------------
 Tue Aug 11 13:01:49 CEST 2009 - jsrain@suse.cz
