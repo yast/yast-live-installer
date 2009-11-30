@@ -60,6 +60,22 @@ Before continuing, finish all running applications."), "1 GB")))
 	}
     }
 
+    // ensure all installation sources are disabled
+    boolean source_init_success = Pkg::SourceStartManager( false );
+    if (source_init_success) {
+	LiveInstaller::source_states = Pkg::SourceEditGet();
+	Pkg::SourceEditSet (maplist (map<string,any> s, LiveInstaller::source_states, {
+	    s["enabled"] = false;
+	    return s;
+	}));
+	foreach (string s, Pkg::ServiceAliases (), {
+	    map<string,any> state = Pkg::ServiceGet (s);
+	    LiveInstaller::service_states[s] = state;
+	    state["enabled"] = false;
+	    Pkg::ServiceSet (s, state);
+	});
+    }
+
     Installation::destdir = "/mnt";
     Installation::scr_destdir = "/mnt";
     import "Storage";
@@ -132,6 +148,13 @@ Continuing the installation may cause data loss.")))
 
     symbol ret = ProductControl::Run();
     y2milestone("ProductControl::Run() returned: %1", ret);
+
+    // reenable sources/services
+    Pkg::SourceEditSet (LiveInstaller::source_states);
+    foreach (string s, map<string,any> state, LiveInstaller::service_states, {
+	Pkg::ServiceSet (s, state);
+	Pkg::ServiceSave (s);
+    });
 
     Pkg::SourceFinishAll();
     Pkg::TargetFinish();

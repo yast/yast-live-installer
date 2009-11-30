@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan  6 14:41:29 CET 2009 - jsrain@suse.cz
+
+- disable all repos before installation, reenable afterwards
+  (bnc #450228)
+
+-------------------------------------------------------------------
 Tue Aug 11 13:01:49 CEST 2009 - jsrain@suse.cz
 
 - replace /etc/YaST2/control.xml before starting live installation

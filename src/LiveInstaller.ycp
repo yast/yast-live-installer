@@ -41,5 +41,8 @@ global string live_control_file =
 
 global boolean run_full_proposal = false;
 
+global list<map<string,any> > source_states = [];
+
+global map<string, map<string,any> > service_states = $[];
 /* EOF */
 }
