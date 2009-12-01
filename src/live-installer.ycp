@@ -32,7 +32,7 @@
     if ($[] != (map)SCR::Read (.target.stat, LiveInstaller::live_control_file)) {
 	ProductControl::custom_control_file = LiveInstaller::live_control_file;
         // replace general control file because of 2nd stage
-	integer cpres = (integer)SCR::Execute (.target.bash, sformat ("/bin/cp %1 %2", live_control_file, "/etc/YaST2/control.xml"));
+	integer cpres = (integer)SCR::Execute (.target.bash, sformat ("/bin/cp %1 %2", LiveInstaller::live_control_file, "/etc/YaST2/control.xml"));
 	if (cpres != 0)
 	{
 	    Report::Error (_("Failed to update the control file for the second stage of the installation"));
