@@ -8,6 +8,7 @@ Mon Nov 30 17:34:35 CET 2009 - jsrain@suse.cz
   (bnc #450228)
 - adapted for unified progress during live installation
   (bnc#435680)
+- 2.17.5
 
 -------------------------------------------------------------------
 Tue Aug 11 13:01:49 CEST 2009 - jsrain@suse.cz
