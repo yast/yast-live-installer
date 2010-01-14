@@ -17,9 +17,8 @@ X-SuSE-YaST-SortKey=
 X-SuSE-YaST-AutoInstResource=live-installer
 
 Icon=yast-live-install
-Exec=/sbin/yast2 live-installer 
+Exec=xdg-su -c "/sbin/yast2 live-installer"
 
 Name=Live Installer
 GenericName=Install current configuration to your system
-X-KDE-SubstituteUID=true
 StartupNotify=true
