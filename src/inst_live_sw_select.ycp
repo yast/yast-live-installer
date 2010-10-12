@@ -8,6 +8,7 @@ textdomain "live-installer";
 
 import "GetInstArgs";
 import "Wizard";
+import "PackagesUI";
 
 /* Called backwards */
 if(GetInstArgs::going_back())
@@ -15,7 +16,7 @@ if(GetInstArgs::going_back())
 
 Wizard::SetContents (_("Software Installation"), `VBox (), "",
     GetInstArgs::enable_back(), GetInstArgs::enable_next());
-symbol result = (symbol)WFM::CallFunction ("inst_packages", []);
+symbol result = PackagesUI::RunPackageSelector($["mode" : `searchMode]);
 y2milestone ("Result: %1", result);
 return result == `accept
     ? `next
