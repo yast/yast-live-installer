@@ -35,7 +35,11 @@
     integer memsize = memories[0,"resource","phys_mem",0,"range"]:0;
     integer oneGB = 1073741824;
     y2milestone ("Physical memory %1", memsize);
-    if (memsize < oneGB) {
+
+    string cmd = "cat /proc/cmdline | grep -q liveinstall";
+    boolean live_only = (0 == (integer)SCR::Execute (.target.bash, cmd));
+
+    if (memsize < oneGB && ! live_only) {
 	// pop-up, %1 is memory size, currently hardcoded "1 GB"
 	if (! Popup::ContinueCancel (sformat  (_("Your computer has less than %1 of memory. This may not be
 sufficient for the live installation, especially when installing
@@ -72,7 +76,7 @@ Before continuing, finish all running applications."), "1 GB")))
     // detect removable media, if they are mounted, they cannot be used for installation (bnc #437235)
     // this is a hack, since partitioner cannot provide information which partitions will be resized,
     // removed or formatted and thus mustn't be mounted during installation
-    string cmd = "cat /proc/mounts  |grep '\/media\/'";
+    cmd = "cat /proc/mounts  |grep '\/media\/'";
     if (0 == (integer)SCR::Execute (.target.bash, cmd))
     {
 	// continue/cancel pop-up
