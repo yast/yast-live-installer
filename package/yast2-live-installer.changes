@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 18 13:12:37 UTC 2010 - jsrain@suse.cz
+
+- suppress memory warning if live installer is running directly
+  from boot scripts (bnc#547743)
+
+-------------------------------------------------------------------
 Tue Oct 12 13:32:37 UTC 2010 - lslezak@suse.cz
 
 - don't use obsoleted inst_packages.ycp client, use PackagesUI.ycp
