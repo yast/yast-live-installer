@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Mar  8 13:42:24 CET 2011 - jsrain@suse.cz
+
+- don't eject the CD during reboot after live installation
+  (bnc#511210)
+
+-------------------------------------------------------------------
 Thu Nov 18 13:12:37 UTC 2010 - jsrain@suse.cz
 
 - suppress memory warning if live installer is running directly
