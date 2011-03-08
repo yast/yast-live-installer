@@ -159,23 +159,19 @@ Continuing the installation may cause data loss.")))
 drive to finish the installation. Either YaST can reboot
 now or you can reboot any time later.
 
-Note that if the Live CD is not ejected, you can either eject
+Note that the Live CD is not ejected, you can either eject
 it after the Live system shuts down or select \"Hard Disk\"
 in the boot menu of the Live CD.");
 	// push button
 	if (Popup::AnyQuestion(Popup::NoHeadline(), msg, _("Reboot &Now"), _("Reboot &Later"), `focus_no))
 	{
-	    string device = "/dev/sr0";
-	    map out = (map)WFM::Execute (.local.bash_output, "cat /proc/mounts |grep '\/media\/livecd ' | cut -d ' ' -f 1");
-	    if (out["exit"]:-1 != 0)
-		y2error ("Failed to detect the device");
-	    else
-		device = out["stdout"]:"";
-	    y2milestone ("Ejecting device %1", device);
-	    string cmd = sformat ("echo s >/proc/sysrq-trigger ; sleep 1 ; echo u >/proc/sysrq-trigger ; eject %1; sleep 10s; echo b >/proc/sysrq-trigger", device);
+	    string cmd = "/sbin/reboot";
 	    UI::OpenDialog (`Label ("Rebooting the system..."));
-	    WFM::Execute (.local.bash, cmd);
-	    // this should never be reached
+	    if (0 == (integer)WFM::Execute (.local.bash, cmd)) {
+		while (true)
+		    sleep(10);
+	    }
+	    // this should never be reached in case of successful reboot
 	    UI::CloseDialog ();
 	    // error report
 	    Report::Error (_("Failed to restart the computer.
