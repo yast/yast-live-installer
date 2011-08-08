@@ -112,6 +112,46 @@ boolean CopyRootImage (integer progress_start, integer progress_finish) {
     SCR::Execute (.target.bash, sformat ("/bin/cp -a %1/etc %2", tmpdir, Installation::destdir));
     return ret;
 }
+
+void ReportImageCopyError() {
+    // check for out of disk space
+    string cmd = "df -P";
+    y2milestone ("Executing %1", cmd);
+    map out = (map)SCR::Execute (.target.bash_output, cmd);
+    y2milestone ("Output: %1", out);
+    string total_str = out["stdout"]:"";
+    string error = nil;
+    foreach (string line, splitstring(total_str, "\n"), {
+	list<string> parsed = filter (string s, splitstring (line, " "), {return s != "";});
+	string dev = parsed[0]:"";
+	string mp = parsed[5]:"";
+	string free = parsed[3]:"";
+	if (substring (dev, 0, 4) == "/dev" && substring (mp, 0, 4) == "/mnt")
+	{
+	    if (tointeger (free) < 100*1024) // need to set some lower limit - roughly estimated maximum size of the last file which could have failed
+	    {
+		error = _("Copying the live image to hard disk failed.
+
+You have run out of disk space. Choose
+a bigger disk partition for the installation
+of the live system.");
+	    }
+	}
+    });
+    if (error != nil)
+    {
+	Report::Error (error);
+	return;
+    }
+
+    total_str = splitstring(total_str, "\n")[1]:"";
+    integer total_mb = tointeger (filter (string s, splitstring (total_str, " "), {return s != "";})[2]:"0") / 1024;
+
+
+
+    // generic error report
+    Report::Error (_("Copying the live image to hard disk failed."));
+}
 /*
 Progress::New(
     // Headline for last dialog of base installation: Install LILO etc.
@@ -145,15 +185,13 @@ integer step_size = 95 / steps;
 
 if (! CopyRootImage (5, 5 + step_size))
 {
-    // error report
-    Report::Error (_("Copying the live image to hard disk failed."));
+    ReportImageCopyError();
     return `abort;
 }
 //Progress::NextStageStep (10);
 if (! CopySymlinkedImage (copy_map, 5 + step_size))
 {
-    // error report
-    Report::Error (_("Copying the live image to hard disk failed."));
+    ReportImageCopyError();
     return `abort;
 }
 //Progress::Finish();
