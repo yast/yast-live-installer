@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Aug  8 10:58:52 CEST 2011 - jsrain@suse.cz
+
+- enhance error reporting when running out of disk space during
+  live installation (bnc#533601)
+- 2.21.0
+
+-------------------------------------------------------------------
 Fri Aug  5 12:33:11 CEST 2011 - tgoettlicher@suse.de
 
 - fixed .desktop file (bnc #681249)
