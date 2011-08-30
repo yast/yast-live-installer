@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug 30 14:43:52 CEST 2011 - jsrain@suse.cz
+
+- do not set the root device for mkinitrd explicitly (bnc#714650)
+- 2.21.1
+
+-------------------------------------------------------------------
 Mon Aug  8 10:58:52 CEST 2011 - jsrain@suse.cz
 
 - enhance error reporting when running out of disk space during

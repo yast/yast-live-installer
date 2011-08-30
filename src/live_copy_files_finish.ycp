@@ -82,9 +82,6 @@ else if (func == "Write")
 	SCR::Execute (.target.bash, sformat("/bin/cp /info.txt %1", eula_txt));
     }
 
-    // FIXME belongs somewhere else
-    Initrd::SetAdditionalParameters (Initrd::AdditionalParameters () + " -d " + BootStorage::RootPartitionDevice);
-
 }
 else
 {
