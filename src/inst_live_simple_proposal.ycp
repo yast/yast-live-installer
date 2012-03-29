@@ -19,7 +19,7 @@ textdomain "live-installer";
 
 Wizard::SetContents (
     // dialog caption
-    _("Installation settings"),
+    _("Installation Settings"),
     // label
     `Label (_("Analyzing the system...")),
     "",
@@ -142,8 +142,9 @@ string help = _("<p>
 Use <b>Accept</b> to perform a new installation with the values displayed.</p>")
 // help text 2/3
 + _("<p>
-To change the values click the respective headline
-or select <b>Change Installation Settings</b></p>")
+To change the values, click the respective headline
+or select <b>Change Installation Settings</b>.</p>
+")
 // help text 3/3
 + _("<p>
 Your hard disk has not been modified, you can still safely abort.
@@ -152,7 +153,7 @@ Your hard disk has not been modified, you can still safely abort.
 
 
 Wizard::SetContents (
-    _("Installation settings"),
+    _("Installation Settings"),
     contents,
     help,
     GetInstArgs::enable_back(),
