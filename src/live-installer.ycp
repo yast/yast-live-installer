@@ -44,7 +44,8 @@
 	if (! Popup::ContinueCancel (sformat  (_("Your computer has less than %1 of memory. This may not be
 sufficient for the live installation, especially when installing
 while running other applications.
-Before continuing, finish all running applications."), "1 GB")))
+Before continuing, close all running applications.
+"), "1 GB")))
 	{
 	    UI::CloseDialog();
 	    return nil;
@@ -81,8 +82,9 @@ Before continuing, finish all running applications."), "1 GB")))
     {
 	// continue/cancel pop-up
 	if (! Popup::ContinueCancel (_("YaST detected a mounted removable media. YaST cannot install
-the system on media which is mounted.
-To install the system on these media, unmount them first.")))
+the system on mounted media.
+Unmount the media to install the system on it.
+")))
 	{
 	    Storage::SwitchUiAutomounter(true);
 	    UI::CloseDialog();
