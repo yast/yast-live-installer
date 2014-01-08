@@ -41,7 +41,7 @@ module Yast
       # Call a script if it exists
       @scriptname = "/usr/bin/correct_live_install"
 
-      if FileUtils.Exists(Installation.destdir + @scriptname)
+      if FileUtils.Exists(File.join(Installation.destdir, @scriptname))
         Builtins.y2milestone(
           "Calling %1 returned %2",
           @scriptname,

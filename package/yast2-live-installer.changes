@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
-Mon Jan  6 13:07:52 UTC 2014 - jsrain@suse.cz
+Wed Jan  8 14:05:04 UTC 2014 - jsrain@suse.cz
 
-- make inst_live_cleanup work before switch to chroot
+- make inst_live_cleanup work before switch to chroot in order to
+  allow to remove 2nd stage from live installation
 
 -------------------------------------------------------------------
 Wed Nov 13 15:56:18 UTC 2013 - jreidinger@suse.com
