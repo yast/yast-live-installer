@@ -30,6 +30,8 @@ module Yast
       Yast.import "Product"
       Yast.import "Wizard"
       Yast.import "FileUtils"
+      Yast.import "Installation"
+      Yast.import "FileUtils"
 
       textdomain "live-installer"
 
@@ -39,18 +41,18 @@ module Yast
       # Call a script if it exists
       @scriptname = "/usr/bin/correct_live_install"
 
-      if FileUtils.Exists(@scriptname)
+      if FileUtils.Exists(File.join(Installation.destdir, @scriptname))
         Builtins.y2milestone(
           "Calling %1 returned %2",
           @scriptname,
-          SCR.Execute(path(".target.bash_output"), @scriptname)
+          SCR.Execute(path(".target.bash_output"), "chroot " + Installation.destdir + " " + @scriptname)
         )
         Builtins.y2milestone(
           "Removing %1 returned %2",
           @scriptname,
           SCR.Execute(
             path(".target.bash_output"),
-            Builtins.sformat("/bin/rm %1", @scriptname)
+            Builtins.sformat("chroot " + Installation.destdir + " /bin/rm %1", @scriptname)
           )
         )
       else
@@ -66,7 +68,7 @@ module Yast
       @out = Convert.to_map(
         SCR.Execute(
           path(".target.bash_output"),
-          "/bin/rpm -e yast2-live-installer"
+          "chroot " + Installation.destdir + " /bin/rpm -e yast2-live-installer"
         )
       )
 
