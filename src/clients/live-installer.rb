@@ -55,7 +55,7 @@ module Yast
         return nil
       end
 
-      Wizard.OpenNextBackStepsDialog
+      Wizard.OpenNextBackDialog
 
       # check available memory
       @memories = Convert.to_list(SCR.Read(path(".probe.memory")))

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar 26 12:56:02 UTC 2014 - lslezak@suse.cz
+
+- hide steps (the left panel) during installation (to be compatible
+  with normal installation) (issue found by tchvatal, fix proposed
+  by coolo, thanks!)
+- 3.1.3
+
+-------------------------------------------------------------------
 Wed Jan  8 14:05:04 UTC 2014 - jsrain@suse.cz
 
 - make inst_live_cleanup work before switch to chroot in order to
