@@ -17,7 +17,7 @@
 
 
 Name:           yast2-live-installer
-Version:        3.1.3
+Version:        3.1.4
 Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -32,6 +32,7 @@ Requires:	yast2-network >= 2.16.6
 Requires:	yast2-bootloader >= 2.18.7
 #unified progress
 Requires:	yast2-installation >= 2.18.17
+Requires:       yast2-users
 
 Requires:	yast2-bootloader yast2-country yast2-storage
 BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-testsuite

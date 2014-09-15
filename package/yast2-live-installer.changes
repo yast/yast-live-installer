@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Sep 15 09:04:41 UTC 2014 - coolo@suse.com
+
+- no longer touch runme_at_boot - we don't need 2nd stage
+- 3.1.4
+
+-------------------------------------------------------------------
+Mon Sep 15 08:33:00 UTC 2014 - coolo@suse.com
+
+- yast2-users is required by live installation
+
+-------------------------------------------------------------------
 Wed Mar 26 12:56:02 UTC 2014 - lslezak@suse.cz
 
 - hide steps (the left panel) during installation (to be compatible
