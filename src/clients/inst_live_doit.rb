@@ -30,6 +30,7 @@ module Yast
       Yast.import "Pkg"
       textdomain "live-installer"
 
+      Yast.import "FileUtils"
       Yast.import "Installation"
       Yast.import "Progress"
       Yast.import "Wizard"
@@ -94,10 +95,9 @@ module Yast
     def LinksToCopyList
       cmd = Builtins.sformat(
         "\n" +
-          "\tfor LINK in `find %1 -xdev -type l` ; do\n" +
-          "\t    stat -c \"%%N\" $LINK |grep livecd >/dev/null 2>/dev/null && echo $LINK;\n" +
-          "\tdone; exit 0",
-        Installation.destdir
+          "\tfor LINK in `find / -xdev -type l` ; do\n" +
+          "\t    stat -c \"%N\" $LINK |grep livecd >/dev/null 2>/dev/null && echo $LINK;\n" +
+          "\tdone; exit 0"
       )
       Builtins.y2milestone("Executing %1", cmd)
       out = Convert.to_map(SCR.Execute(path(".target.bash_output"), cmd))
@@ -168,12 +168,19 @@ module Yast
         # 	    components[size(components) - 1] = "";
         # 	link = mergestring (components, "/");
         progress_done = Ops.add(progress_start, progress_step)
-        ret = ImageInstallation.FileSystemCopy(
-          Ops.add("/", target),
-          Builtins.sformat("%1/%2", Installation.destdir, link),
-          progress_start,
-          progress_done
-        ) && ret
+        if FileUtils.IsDirectory(target)
+          ret = ImageInstallation.FileSystemCopy(
+            Ops.add("/", target),
+            Builtins.sformat("%1/%2", Installation.destdir, link),
+            progress_start,
+            progress_done
+          ) && ret
+        else
+          SCR.Execute(
+            path(".target.bash"),
+            Builtins.sformat("/bin/cp -a %1 %2/%3", target, Installation.destdir, link)
+          )
+        end
         progress_start = progress_done
         #	Progress::Step (progress_start);
         SlideShow.StageProgress(progress_done, nil)
