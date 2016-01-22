@@ -14,7 +14,6 @@ client_DATA = \
   clients/live-installer.rb \
   clients/inst_live_pre-proposal.rb \
   clients/live_save_config_finish.rb \
-  clients/inst_live_prepare_net_test.rb \
   clients/inst_live_full_proposal.rb \
   clients/live_runme_at_boot_finish.rb
 
