@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 26 18:52:20 UTC 2016 - martin.koegler@chello.at
+
+- fix replacing symlinks to /livecd/* by their target file/directory
+- 3.1.6
+
+-------------------------------------------------------------------
 Wed Jan 13 18:37:12 UTC 2016 - mfilka@suse.com
 
 - dropped unused inst client
