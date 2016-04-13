@@ -45,7 +45,6 @@ module Yast
       Yast.import "FileUtils"
       Yast.import "String"
       Yast.import "Initrd"
-      Yast.import "BootStorage"
       # FIXME don't know why it fails :-(
       # import "SystemFilesCopy";
 
