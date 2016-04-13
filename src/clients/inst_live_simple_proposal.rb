@@ -26,7 +26,6 @@ module Yast
     def main
       Yast.import "UI"
 
-      Yast.import "BootCommon"
       Yast.import "GetInstArgs"
       Yast.import "Popup"
       Yast.import "Product"
@@ -130,37 +129,6 @@ module Yast
       end
 
       # end of partitioning summary
-      # bootloader summary
-
-      @timeout = Ops.get(BootCommon.globals, "timeout", "")
-
-      @other = false
-      Builtins.foreach(BootCommon.sections) do |s|
-        @other = true if Ops.get_string(s, "type", "") == "other"
-      end
-
-      @contents = Builtins.add(@contents, VSpacing(1))
-      @contents = Builtins.add(@contents, Left(Heading(_("System start-up"))))
-      @contents = Builtins.add(
-        @contents,
-        Left(
-          Label(
-            @other ?
-              _("Ask whether to boot Linux or existing system") :
-              _("Boot only Linux")
-          )
-        )
-      )
-      @contents = Builtins.add(
-        @contents,
-        Left(
-          Label(
-            Builtins.sformat(_("System start time-out: %1 seconds"), @timeout)
-          )
-        )
-      )
-
-      # end of bootloader summary
       # keyboard entry
 
       @contents = Builtins.add(@contents, VSpacing(1))

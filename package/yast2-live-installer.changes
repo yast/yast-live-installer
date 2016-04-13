@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr 13 11:57:25 UTC 2016 - jreidinger@suse.com
+
+- remove using of dropped bootloader parts (related to FATE#317701)
+- 3.1.7
+
+-------------------------------------------------------------------
 Tue Jan 26 18:52:20 UTC 2016 - martin.koegler@chello.at
 
 - fix replacing symlinks to /livecd/* by their target file/directory
