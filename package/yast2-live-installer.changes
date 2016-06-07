@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun  7 08:21:02 UTC 2016 - igonzalezsosa@suse.com
+
+- Stop generating autodocs (fate#320356)
+- 3.1.8
+
+-------------------------------------------------------------------
 Wed Apr 13 11:57:25 UTC 2016 - jreidinger@suse.com
 
 - remove using of dropped bootloader parts (related to FATE#317701)
