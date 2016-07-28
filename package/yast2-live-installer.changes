@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jul 28 13:03:03 UTC 2016 - cyberorg@opensuse.org
+
+- correct_live_* scripts are removed from kiwi config
+  these scripts are required to get yast2-live-installer function,
+  the scripts belong in this package
+- Added Requires for yast modules needed by live-installer
+
+-------------------------------------------------------------------
 Tue Jun  7 08:21:02 UTC 2016 - igonzalezsosa@suse.com
 
 - Stop generating autodocs (fate#320356)

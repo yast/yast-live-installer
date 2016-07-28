@@ -22,7 +22,8 @@ Release:        0
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        %{name}-%{version}.tar.bz2
-
+Source1:        correct_live_for_reboot
+Source2:        correct_live_install
 Group:	        System/YaST
 License:        GPL-2.0+
 
@@ -32,7 +33,8 @@ Requires:	yast2-network >= 2.16.6
 Requires:	yast2-bootloader >= 2.18.7
 #unified progress
 Requires:	yast2-installation >= 2.18.17
-
+Requires:       yast2-qt-branding-openSUSE
+Requires:       yast2-users
 Requires:	yast2-bootloader yast2-country yast2-storage
 BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-testsuite
 BuildRequires:  yast2-devtools >= 3.1.10
@@ -55,11 +57,16 @@ hard disk of the computer.
 
 %install
 %yast_install
-
+%__install -d -m 755 %{buildroot}/%_bindir/
+cp %{SOURCE1} %{buildroot}/%_bindir/
+cp %{SOURCE2} %{buildroot}/%_bindir/
+chmod 755 %{buildroot}/%_bindir/*
 
 %files
 %defattr(-,root,root)
 %{yast_clientdir}/*.rb
 %{yast_moduledir}/LiveInstaller.*
 %{yast_desktopdir}/live-installer.desktop
+%_bindir/correct_live_for_reboot
+%_bindir/correct_live_install
 %doc %{yast_docdir}
