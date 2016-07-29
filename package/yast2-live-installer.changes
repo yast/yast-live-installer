@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jul 29 09:48:41 UTC 2016 - cyberorg@opensuse.org
+
+- remove mkinitrd workaround from correct_live_for_reboot,
+  not needed anymore
+- boo #991084 
+
+-------------------------------------------------------------------
 Thu Jul 28 13:03:03 UTC 2016 - cyberorg@opensuse.org
 
 - correct_live_* scripts are removed from kiwi config
