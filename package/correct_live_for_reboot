@@ -28,7 +28,3 @@ mv /home/linux /home/linux~
 #undo journald.conf changes, bug 950999
 sed -i -e s@Storage=volatile@@ /etc/systemd/journald.conf
 
-#workaround for missing initrd
-grub2-mkconfig -o /boot/grub2/grub.cfg
-mkinitrd
-
