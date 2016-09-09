@@ -1,5 +1,16 @@
-# YaST - The Live Installer Module #
+Obsoleted Module
+================
 
-[![Travis Build](https://travis-ci.org/yast/yast-live-installer.svg?branch=master)](https://travis-ci.org/yast/yast-live-installer)
-[![Jenkins Build](http://img.shields.io/jenkins/s/https/ci.opensuse.org/yast-live-installer-master.svg)](https://ci.opensuse.org/view/Yast/job/yast-live-installer-master/)
+**This module is obsoleted and is not developed anymore.**
+
+The Live CD installer is not used anymore, the openSUSE Live installation
+now runs standard full installtion.
+
+
+GIT
+---
+
+If you want to see the last state check the [*master_old*](../master_old) branch.
+
+For the SLE12 maintained versions see the SLE-12-\* branches.
 
