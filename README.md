@@ -10,7 +10,7 @@ now runs standard full installtion.
 GIT
 ---
 
-If you want to see the last state check the [*master_old*](../master_old) branch.
+If you want to see the last state check the [*master_old*](../../tree/master_old) branch.
 
 For the SLE12 maintained versions see the SLE-12-\* branches.
 
