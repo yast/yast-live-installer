@@ -1,9 +1,18 @@
 -------------------------------------------------------------------
+Mon Jun  5 20:12:52 UTC 2017 - opensuse.lietuviu.kalba@gmail.com
+
+- Use /etc/products.d/openSUSE.prod as /etc/products.d/baseproduct
+  (boo#1011147)
+- Requires yast2-qt-branding instead of yast2-qt-branding-openSUSE
+- 3.1.11
+
+-------------------------------------------------------------------
 Fri Jul 29 09:48:41 UTC 2016 - cyberorg@opensuse.org
 
 - remove mkinitrd workaround from correct_live_for_reboot,
   not needed anymore
-- boo #991084 
+- boo #991084
+- 3.1.10
 
 -------------------------------------------------------------------
 Thu Jul 28 13:03:03 UTC 2016 - cyberorg@opensuse.org
@@ -12,6 +21,7 @@ Thu Jul 28 13:03:03 UTC 2016 - cyberorg@opensuse.org
   these scripts are required to get yast2-live-installer function,
   the scripts belong in this package
 - Added Requires for yast modules needed by live-installer
+- 3.1.9
 
 -------------------------------------------------------------------
 Tue Jun  7 08:21:02 UTC 2016 - igonzalezsosa@suse.com

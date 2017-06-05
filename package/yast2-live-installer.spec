@@ -1,7 +1,7 @@
 #
 # spec file for package yast2-live-installer
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,33 +17,35 @@
 
 
 Name:           yast2-live-installer
-Version:        3.1.10
+Version:        3.1.11
 Release:        0
-
+Summary:        YaST2 - Installation from Live Media
+Group:          System/YaST
+License:        GPL-2.0+
+BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        correct_live_for_reboot
 Source2:        correct_live_install
-Group:	        System/YaST
-License:        GPL-2.0+
-
-# Internet and InternetDevices
-Requires:	yast2 >= 2.16.6
-Requires:	yast2-network >= 2.16.6
-Requires:	yast2-bootloader >= 2.18.7
-#unified progress
-Requires:	yast2-installation >= 2.18.17
-Requires:       yast2-qt-branding-openSUSE
-Requires:       yast2-users
-Requires:	yast2-bootloader yast2-country yast2-storage
-BuildRequires:	perl-XML-Writer update-desktop-files yast2 yast2-testsuite
+BuildRequires:  perl-XML-Writer
+BuildRequires:  update-desktop-files
+BuildRequires:  yast2
 BuildRequires:  yast2-devtools >= 3.1.10
-
-BuildArchitectures:	noarch
-
+BuildRequires:  yast2-testsuite
+# Internet and InternetDevices
+Requires:       yast2 >= 2.16.6
+Requires:       yast2-bootloader >= 2.18.7
+Requires:       yast2-network >= 2.16.6
+# unified progress
+Requires:       yast2-bootloader
+Requires:       yast2-country
+Requires:       yast2-installation >= 2.18.17
+Requires:       yast2-qt-branding
+Requires:       yast2-storage
+Requires:       yast2-users
 Requires:       yast2-ruby-bindings >= 1.0.0
-
-Summary:	YaST2 - Installation from Live Media
+# openSUSE-release contains /etc/products.d/openSUSE.prod (boo#1011147)
+Requires:       openSUSE-release
 
 %description
 This package contains the YaST component to deploy a live media to the
@@ -62,6 +64,13 @@ cp %{SOURCE1} %{buildroot}/%_bindir/
 cp %{SOURCE2} %{buildroot}/%_bindir/
 chmod 755 %{buildroot}/%_bindir/*
 
+%post
+if [ -f /etc/products.d/baseproduct ] ; then
+   rm /etc/products.d/baseproduct
+fi
+if [ -f /etc/products.d/openSUSE.prod ] ; then
+   ln -s /etc/products.d/openSUSE.prod /etc/products.d/baseproduct
+fi
 %files
 %defattr(-,root,root)
 %{yast_clientdir}/*.rb
@@ -70,3 +79,5 @@ chmod 755 %{buildroot}/%_bindir/*
 %_bindir/correct_live_for_reboot
 %_bindir/correct_live_install
 %doc %{yast_docdir}
+
+%changelog
