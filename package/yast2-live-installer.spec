@@ -65,12 +65,13 @@ cp %{SOURCE2} %{buildroot}/%_bindir/
 chmod 755 %{buildroot}/%_bindir/*
 
 %post
-if [ -f /etc/products.d/baseproduct ] ; then
-   rm /etc/products.d/baseproduct
+if ( [ ! -L /etc/products.d/baseproduct ] &&  [ -f /etc/products.d/openSUSE.prod ] ) ; then
+  if [   -f /etc/products.d/baseproduct ] ; then
+    rm /etc/products.d/baseproduct
+  fi
+  ln -s /etc/products.d/openSUSE.prod /etc/products.d/baseproduct
 fi
-if [ -f /etc/products.d/openSUSE.prod ] ; then
-   ln -s /etc/products.d/openSUSE.prod /etc/products.d/baseproduct
-fi
+
 %files
 %defattr(-,root,root)
 %{yast_clientdir}/*.rb
