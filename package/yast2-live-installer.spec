@@ -44,8 +44,6 @@ Requires:       yast2-qt-branding
 Requires:       yast2-storage
 Requires:       yast2-users
 Requires:       yast2-ruby-bindings >= 1.0.0
-# openSUSE-release contains /etc/products.d/openSUSE.prod (boo#1011147)
-Requires:       openSUSE-release
 
 %description
 This package contains the YaST component to deploy a live media to the
