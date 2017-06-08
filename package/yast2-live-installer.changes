@@ -1,6 +1,7 @@
 -------------------------------------------------------------------
 Mon Jun  5 20:12:52 UTC 2017 - opensuse.lietuviu.kalba@gmail.com
 
+- Requires disk and partitioning tools (boo#1042559, boo#1043270)
 - Use /etc/products.d/openSUSE.prod as /etc/products.d/baseproduct
   (boo#1011147)
 - Requires yast2-qt-branding instead of yast2-qt-branding-openSUSE

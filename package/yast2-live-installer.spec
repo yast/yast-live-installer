@@ -44,6 +44,16 @@ Requires:       yast2-qt-branding
 Requires:       yast2-storage
 Requires:       yast2-users
 Requires:       yast2-ruby-bindings >= 1.0.0
+# disk and partitioning utils/tools
+Requires:       sg3_utils
+Requires:       btrfsprogs
+Requires:       dosfstools
+Requires:       e2fsprogs
+Requires:       jfsutils
+Requires:       hfsutils
+Requires:       ntfsprogs
+Requires:       reiserfs
+Requires:       xfsprogs
 
 %description
 This package contains the YaST component to deploy a live media to the
