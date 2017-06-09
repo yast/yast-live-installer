@@ -45,15 +45,18 @@ Requires:       yast2-storage
 Requires:       yast2-users
 Requires:       yast2-ruby-bindings >= 1.0.0
 # disk and partitioning utils/tools
-Requires:       sg3_utils
 Requires:       btrfsprogs
 Requires:       dosfstools
+Requires:       dmraid
 Requires:       e2fsprogs
 Requires:       jfsutils
 Requires:       hfsutils
+Requires:       kpartx
 Requires:       lvm2
 Requires:       ntfsprogs
+Requires:       os-prober
 Requires:       reiserfs
+Requires:       sg3_utils
 Requires:       xfsprogs
 
 %description
