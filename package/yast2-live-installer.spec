@@ -51,6 +51,7 @@ Requires:       dosfstools
 Requires:       e2fsprogs
 Requires:       jfsutils
 Requires:       hfsutils
+Requires:       lvm2
 Requires:       ntfsprogs
 Requires:       reiserfs
 Requires:       xfsprogs
