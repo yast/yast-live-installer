@@ -53,6 +53,7 @@ Requires:       jfsutils
 Requires:       hfsutils
 Requires:       kpartx
 Requires:       lvm2
+Requires:       ntfs-3g
 Requires:       ntfsprogs
 Requires:       os-prober
 Requires:       reiserfs
