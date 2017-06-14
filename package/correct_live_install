@@ -7,8 +7,10 @@
 # /etc/sudoers hack to fix #297695 
 # (Installation Live CD: no need to ask for password of root)
 #--------------------------------------
-sed -i -e "s/ALL ALL=(ALL) NOPASSWD: ALL/ALL ALL=(ALL) ALL/" /etc/sudoers
-chmod 0440 /etc/sudoers
+if [ -f /etc/sudoers ] ; then
+  sed -i -e "s/ALL ALL=(ALL) NOPASSWD: ALL/ALL ALL=(ALL) ALL/" /etc/sudoers
+  chmod 0440 /etc/sudoers
+fi
 
 # bug 544314, we need to use pam-config to correctly reset the gnome-keyring-pam config (see bug 723339)
 pam_config_keyring=`rpm -q --scripts gnome-keyring-pam | grep -v " *#" | grep "pam-config *-a" | head -n 1`
@@ -18,14 +20,27 @@ test -n "$pam_config_keyring" && eval "$pam_config_keyring"
 pam-config -d --nullok
 
 # remove unneeded /license.tar.gz
-rm /license.tar.gz
+rm /license.tar.gz || true
+
+# remove susestudio files
+#rm -rf /studio || true
+#rm /bootincluded_archives.filelist || true
 
 # remove langset stuff
-rm /etc/langset.sh
-rm -rf /etc/langset/
+rm /etc/langset.sh || true
+rm -rf /etc/langset/ || true
 
-# bug 391798
-sed -i -e 's,DISPLAYMANAGER_AUTOLOGIN="linux",DISPLAYMANAGER_AUTOLOGIN="",'  /etc/sysconfig/displaymanager
+# remove default live-cd user, only if there are more users
+live_user="linux"
+if [ `ls /home | grep -c "^"` != "1" ] && [ -e "/home/${live_user}" ] ; then
+  
+  # bug 391798
+  sed -i -e 's,DISPLAYMANAGER_AUTOLOGIN="${live_user}",DISPLAYMANAGER_AUTOLOGIN="",'  /etc/sysconfig/displaymanager
+
+  userdel ${live_user} || true
+  rm -rf "/home/${live_user}" || true
+  
+fi
 
 rm -f /var/lib/zypp/AnonymousUniqueId
 rmdir /livecd || true
