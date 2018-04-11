@@ -27,3 +27,11 @@ Makefile.am.common
 .dep
 tmp.*
 *.log
+.yardoc
+/doc/autodocs
+/testsuite/config/
+testsuite/run/
+/testsuite/*.sum
+/testsuite/*.exp
+/testsuite/raw.tmp.*
+/testsuite/yast2-live-installer.test/testsuite.exp
